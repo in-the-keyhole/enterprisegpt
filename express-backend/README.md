@@ -21,7 +21,7 @@ For local development or debugging, the back-end can be run independently from t
 
 ### Starting the Node.js application
 
-The back-end is automatically started by the docker configuration but we'll need to add some back-end configuration settings first. Follow these steps:
+The back-end is automatically started by the Docker configuration, but it can also be run independently. Follow these steps to do so:
 
 1. Clone the repository: 
     ```bash
@@ -30,18 +30,20 @@ The back-end is automatically started by the docker configuration but we'll need
     ```
 2. Navigate to the express-backend directory: `cd express-backend`
 3. Install dependencies with `npm install`.
-4. Ensure that you have a `.env` file in the `express-backend` root directory. You can copy the provided `.env.template` file in the `express-backend` root directory and create a new `.env` file.
-5. Update the `.env` file with your [OpenAI API key](https://platform.openai.com/account/api-keys) and any other environment-specific configurations.
+4. For running the back-end independently, you'll need to set up a `.env` file in the `express-backend` directory. You can copy the root-level `.env.template` file and place it in `express-backend`. This step is only necessary if you intend to run the back-end outside the Docker environment. 
+5. Update the `.env` file with your [OpenAI API key](https://platform.openai.com/account/api-keys) and adjust the `BACKEND_PORT` setting if needed. Any other environment-specific configurations can also be added to this file.
 6. Save the changes to the `.env` file.
 7. Start the application with `npm run dev`.
 
 The backend server will start running on port 5000.
 
-**Note: While each piece of the application can run independently, it's generally recommended to run the entire application stack with Docker for most development purposes to ensure seamless integration. However, independently running each piece can be useful for isolated debugging or development purposes.**
+*Please remember to remove this local `.env` file from the `express-backend` once you're done with your independent back-end development to avoid confusion with the Docker setup which uses the root-level `.env` file.*
 
-**Please note, to fully use the application locally, you'll also need to have the front-end running. You can follow the [Starting the React application](../react-frontend/README.md#starting-the-react-application) steps in the react-frontend [README.md](../react-frontend/README.md) to get it started.**
+*While each piece of the application can run independently, it's generally recommended to run the entire application stack with Docker for most development purposes. This ensures seamless integration, but independently running each component can be useful for isolated debugging or development.*
 
-**Note: While the `.env` file is included in the `.gitignore` file to prevent accidental commits, it's important to remain vigilant and ensure that the file is not inadvertently committed to your version control system. Always double-check your changes before committing to protect your API key.**
+*To fully leverage the application locally, you'll also need the front-end running. Follow the [Starting the React application](../react-frontend/README.md#starting-the-react-application) steps in the react-frontend [README.md](../react-frontend/README.md) to get it started.*
+
+*Remember, the `.env` file is included in the `.gitignore` file to prevent accidental commits. Despite this precaution, it's important to stay vigilant and ensure that the file is not inadvertently committed to your version control system. Always double-check your changes before committing to protect your API key.*
 
 ## Available Scripts
 In the `express-backend` project directory, you can run:

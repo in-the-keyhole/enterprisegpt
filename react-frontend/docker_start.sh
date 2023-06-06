@@ -7,7 +7,7 @@ nginx -g "daemon off;" &
 sleep 5
 
 # Echo the message
-echo -e "\n\nReact Frontend is ready! Access it on your browser at http://localhost:3000\n"
+echo -e "\nReact Frontend is ready! Access it on your browser at http://localhost:${FRONTEND_PORT}\n"
 
 # Keep script running
 tail -f /dev/null

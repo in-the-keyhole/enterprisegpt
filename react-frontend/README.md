@@ -19,22 +19,27 @@ For local development or debugging, the front-end can be run independently from 
 
 ### Starting the React application
 
-The front-end is automatically started by the Docker configuration, but in order to run the application locally without Docker, follow these steps:
+The front-end is automatically started by the Docker configuration, but it can also be run independently. Here are the steps to do so:
 
 1. Clone the repository: 
     ```bash
     git clone https://github.com/in-the-keyhole/enterprisegpt
     cd enterprisegpt
-    ``` 
+    ```
 2. Navigate to the react-frontend directory: `cd react-frontend`
 3. Install dependencies with `npm install`.
-4. Start the application with `npm run dev`.
+4. For running the front-end independently, you'll need to set up a `.env` file in the `react-frontend` directory. You can copy the root-level `.env.template` file and place it in `react-frontend`. This step is only necessary if you intend to run the front-end outside the Docker environment.
+5. Update the `.env` file with the `FRONTEND_PORT` setting. You should ensure this port is available for use on your system.
+6. Save the changes to the `.env` file.
+7. Start the application with `npm start`.
 
 The front-end application will now be running on port 3000. It's possible it starts on another port if you have another process already on port 3000.
 
-**Note: While each piece of the application can run independently, it's generally recommended to run the entire application stack with Docker for most development purposes to ensure seamless integration. However, independently running each piece can be useful for isolated debugging or development purposes.**
+*Please remember to remove this local `.env` file from the `react-frontend` once you're done with your independent front-end development to avoid confusion with the Docker setup which uses the root-level `.env` file.</span>*
 
-**Please note, to fully use the application locally, you'll also need to have the back-end running. You can follow the [Starting the Node.js application](../express-backend/README.md#starting-the-nodejs-application) steps in the express-backend [README.md](../express-backend/README.md) to get it started.**
+*While it's possible to run each part of the application independently, we generally recommend running the entire application stack with Docker for most development purposes. This approach ensures seamless integration, though you might find it useful to run components independently for isolated debugging or development.*
+
+*Remember, to fully experience the application locally, the back-end needs to be operational as well. You can start it by following the [Starting the Node.js application](../express-backend/README.md#starting-the-nodejs-application) steps detailed in the express-backend [README.md](../express-backend/README.md).*
 
 ## Available Scripts
 In the react-frontend project directory, you can run: 

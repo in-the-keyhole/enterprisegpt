@@ -3,7 +3,9 @@ import { promisify } from 'util';
 import express from 'express';
 
 const app = express();
-const port = 5000;
+
+// Get the backend port from the environment variables
+const backendPort = process.env.BACKEND_PORT || 5000;
 
 const readFileAsync = promisify(readFile);
 
@@ -18,8 +20,6 @@ app.get('/', async (request, response) => {
   }
 });
 
-app.listen(5000, () => 
-  console.log(`Node.js server is now running on port:${port}\n\n`)
-)
-
-
+app.listen(backendPort, () => 
+  console.log(`\n\nNode.js server is now running at http://localhost:${backendPort}\n`)
+);

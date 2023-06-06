@@ -1,12 +1,40 @@
+# This indicates the version of Docker Compose file format, it should match your Docker Compose version.
 version: '3.8'
+
+# Define the services that your application consists of.
 services:
+  # This is the service name for the back-end express server.
   express-backend:
+    # It instructs Docker to build an image using the Dockerfile in the express-backend directory.
     build: express-backend
+
+    # It maps the port inside Docker as specified by the environment variable BACKEND_PORT to the same port on the host.
     ports:
-      - 5000:5000  # backend application should listen on port 5000 inside its container
+      - '${BACKEND_PORT}:${BACKEND_PORT}'
+
+    # This defines environment variables that will be passed into the Docker container.
+    environment:
+      # BACKEND_PORT will be used in your Node.js Express app to listen on this port.
+      - BACKEND_PORT=${BACKEND_PORT}
+      
+      # OPENAI_API_KEY is passed into your Docker container to be used in your application for OpenAI API calls.
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+
+  # This is the service name for the front-end React application.
   react-frontend:
+    # It instructs Docker to build an image using the Dockerfile in the react-frontend directory.
     build: react-frontend
+
+    # It maps the port inside Docker as specified by the environment variable FRONTEND_PORT to port 80 on the host.
     ports:
-      - 3000:80  # frontend application should listen on port 80 inside its container and be mapped to port 3000 on the host
+      - '${FRONTEND_PORT}:80'
+      
+    # This defines environment variables that will be passed into the Docker container.
+    environment:
+      # FRONTEND_PORT will be used in your Nginx configuration to determine where the React app is served from.
+      - FRONTEND_PORT=${FRONTEND_PORT}
+
+    # This defines dependency of the react-frontend service on the express-backend service.
+    # Docker Compose will start services in dependency order.
     depends_on:
       - express-backend
