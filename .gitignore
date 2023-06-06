@@ -44,12 +44,6 @@ jspm_packages/
 /express-backend/node_modules/
 /react-frontend/node_modules/
 
-# Ignore dependency lock files
-/express-backend/package-lock.json
-/react-frontend/package-lock.json
-/express-backend/yarn.lock
-/react-frontend/yarn.lock
-
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 

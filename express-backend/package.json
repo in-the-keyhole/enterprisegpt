@@ -8,8 +8,8 @@
     "dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "Keyhole Software (Andy Link)",
-  "license": "ISC",
+  "author": "Keyhole Software",
+  "license": "Apache-2.0",
   "type": "module",
   "dependencies": {
     "express": "^4.18.2"

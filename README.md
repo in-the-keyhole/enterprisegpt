@@ -18,30 +18,36 @@ For more information on the Compose file format versions and compatibility, plea
 If you encounter any issues with running this project, you may need to update your `Docker Desktop` to the latest version. You can check for updates by selecting "Check for updates" from the Docker menu.
 
 ## Starting the application
-The root level `package.json` file has several scripts to simplify the process of starting the application with Docker. 
+The root level `package.json` file has several scripts to simplify the process of starting the application with Docker.
 
-1. Clone the repository: 
+1. Clone the repository:
     ```bash
     git clone https://github.com/in-the-keyhole/enterprisegpt
     cd enterprisegpt
-    ``` 
+    ```
+
 2. Start Docker Desktop: Before you start the application, ensure Docker Desktop is running. Docker Desktop is an application, so you can start it like any other application on your system. For Linux users, Docker service can be started with `sudo systemctl start docker` or `sudo service docker start`.
-3. Install the root level project dependencies with `npm install`.
-4. Run the application with npm:
+
+3. Setup Environment Variables: Copy the `.env.template` file and create a new file named `.env` in the root of the project. Update this new `.env` file with your specific values.
+
+4. Install the root level project dependencies with `npm install`.
+
+5. Run the application with npm:
     ```bash
     npm run start
     ```
     The `start` script will build the Docker images and then start the Docker containers.
 
-    **Note: The `npm run start` command will automatically run `docker-compose build` and `docker-compose up` for you. If you need to manually rebuild the images or restart the containers, you can still use these commands separately.**
+    **Note:** The `npm run start` command will automatically run `docker-compose build` and `docker-compose up` for you. If you need to manually rebuild the images or restart the containers, you can still use these commands separately.
 
-5. If you want to refresh your Docker containers completely - taking down existing containers, rebuilding the image, and starting the containers again, you can use the `start:fresh` script:
+6. If you want to refresh your Docker containers completely - taking down existing containers, rebuilding the image, and starting the containers again, you can use the `start:fresh` script:
     ```bash
     npm run start:fresh
     ```
-    **<span style="color:#AAA000">Caution: This command will remove all existing containers for this project and any data stored within those containers.</span>**
+    > **Caution:** This command will remove all existing containers for this project and any data stored within those containers.
 
-Your application should now be running. You can access the frontend at `http://localhost:3000` and your backend at `http://localhost:5000`.
+Your application should now be running. You can access the frontend at http://localhost:3000 and your backend at http://localhost:5000.
+
 
 ## Project Structure & Deployment
 This project utilizes Docker to create and manage the application's environment. Both the front-end and back-end services are dockerized, enabling seamless deployment and scaling.
