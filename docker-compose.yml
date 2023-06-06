@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  express-backend:
+    build: express-backend
+    ports:
+      - 5000:5000  # backend application should listen on port 5000 inside its container
+  react-frontend:
+    build: react-frontend
+    ports:
+      - 3000:80  # frontend application should listen on port 80 inside its container and be mapped to port 3000 on the host
+    depends_on:
+      - express-backend

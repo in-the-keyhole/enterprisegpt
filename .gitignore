@@ -41,6 +41,14 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+/express-backend/node_modules/
+/react-frontend/node_modules/
+
+# Ignore dependency lock files
+/express-backend/package-lock.json
+/react-frontend/package-lock.json
+/express-backend/yarn.lock
+/react-frontend/yarn.lock
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
@@ -78,6 +86,16 @@ web_modules/
 .env.test.local
 .env.production.local
 .env.local
+/express-backend/.env
+/express-backend/.env.development.local
+/express-backend/.env.test.local
+/express-backend/.env.production.local
+/express-backend/.env.local
+/react-frontend/.env
+/react-frontend/.env.development.local
+/react-frontend/.env.test.local
+/react-frontend/.env.production.local
+/react-frontend/.env.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
