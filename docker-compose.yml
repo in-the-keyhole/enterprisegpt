@@ -29,8 +29,6 @@ services:
     environment:
       - API_PORT=${API_PORT}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-    networks:
-      - enterprisegpt_network
 
   client:
     build:
@@ -44,9 +42,3 @@ services:
       - CLIENT_PORT=${CLIENT_PORT}
     depends_on:
       - api
-    networks:
-      - enterprisegpt_network
-
-networks:
-  enterprisegpt_network:
-    driver: bridge
