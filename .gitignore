@@ -41,8 +41,8 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
-/express-backend/node_modules/
-/react-frontend/node_modules/
+/api/node_modules/
+/client/node_modules/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
@@ -80,16 +80,16 @@ web_modules/
 .env.test.local
 .env.production.local
 .env.local
-/express-backend/.env
-/express-backend/.env.development.local
-/express-backend/.env.test.local
-/express-backend/.env.production.local
-/express-backend/.env.local
-/react-frontend/.env
-/react-frontend/.env.development.local
-/react-frontend/.env.test.local
-/react-frontend/.env.production.local
-/react-frontend/.env.local
+/api/.env
+/api/.env.development.local
+/api/.env.test.local
+/api/.env.production.local
+/api/.env.local
+/client/.env
+/client/.env.development.local
+/client/.env.test.local
+/client/.env.production.local
+/client/.env.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
