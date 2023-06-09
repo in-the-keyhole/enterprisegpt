@@ -1,0 +1,34 @@
+{
+  "name": "enterprisegpt",
+  "version": "1.0.0",
+  "description": "EnterpriseGPT is an open-source web application built on top of OpenAI's GPT-3.5. It's designed for enterprise IT organizations who wish to utilize the AI model while ensuring their source code isn't submitted for analysis. This is achieved through a custom filtering mechanism within the application.",
+  "type": "module",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "openai": "^3.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "scripts": {
+    "start:nocache": "docker-compose down && docker-compose build --no-cache && docker-compose up",
+    "start": "docker-compose build && docker-compose up",
+    "start:down-up": "docker-compose down && docker-compose build && docker-compose up"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/in-the-keyhole/enterprisegpt.git"
+  },
+  "keywords": [],
+  "author": "Keyhole Software",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/in-the-keyhole/enterprisegpt/issues"
+  },
+  "homepage": "https://github.com/in-the-keyhole/enterprisegpt#readme"
+}

@@ -1,0 +1,6 @@
+# The '*.sh text eol=lf' setting ensures that all shell (.sh) files use LF (Line Feed) line endings. 
+# This is important because shell scripts are typically run in Unix-like environments, which standardly use LF line endings.
+# If a shell script uses CRLF (Carriage Return Line Feed) line endings, which are standard on Windows systems, it can cause issues when the script is run 
+# in a Unix-like environment. Therefore, this setting ensures that regardless of which system you're working on (Windows, macOS, Linux), Git will maintain 
+# LF line endings for all .sh files in your repository, preventing potential line ending issues when running these scripts.
+*.sh text eol=lf

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Chat Assistant: Powered by EnterpriseGPT</title>
+    <style>
+      body {
+        background-color: #222222;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .header {
+        padding: 1rem;
+        background-color: #111111;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin: 0;
+      }
+
+      .content {
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: calc(100vh - 6rem);
+      }
+
+      .response-container {
+        width: 800px;
+        min-width: 600px;
+        flex-direction: column;
+        align-items: center;
+        padding: 8rem 8rem 5rem 8rem;
+        overflow-y: auto;
+      }
+
+      .response-container p {
+        color: #ffffff;
+        text-align: left;
+        line-height: 1.5;
+        font-size: 1.2rem;
+        margin: 0 0 1rem 2rem;
+        padding: 0.5rem;
+      }
+
+      .response-container p.user-message {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .footer {
+        padding: 1rem;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+      }
+
+      textarea {
+        padding: 0.5rem;
+        width: 600px;
+        font-size: 1rem;
+        resize: vertical;
+        overflow-y: auto;
+        max-height: 200px;
+        height: 24px;
+        border-radius: 4px;
+      }
+
+      button {
+        margin-left: 1rem;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        background-color: #009688;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .input-container {
+        width: 800px;
+        margin: 0 auto;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .input-container textarea {
+        flex-grow: 1;
+        padding: 0.5rem;
+        width: 600px;
+        font-size: 1rem;
+        resize: vertical;
+        overflow-y: auto;
+        max-height: 200px;
+        height: 24px;
+        border-radius: 4px;
+      }
+
+      .input-container button {
+        margin-left: 1rem;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        background-color: #009688;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>ChatGPT: Source Code Restricted</h1>
+      <p>Powered by EnterpriseGPT: A secure and intelligent chat assistant.</p>
+    </div>
+
+    <div class="content">
+      <div class="response-container">
+        <!-- User and response messages will appear here. -->
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="input-container">
+        <textarea id="chatPromptInput" placeholder="Enter a detailed message or question. Source code not permitted." rows="1"></textarea>
+        <button id="sendButton">Send Message</button>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      const sendButton = document.getElementById('sendButton');
+      const chatPromptInput = document.getElementById('chatPromptInput');
+      const responseContainer = document.querySelector('.response-container');
+
+      chatPromptInput.addEventListener('input', function() {
+        this.style.height = '24px';
+        this.style.height = (this.scrollHeight > 200) ? '200px' : `${this.scrollHeight}px`;
+      });
+
+      sendButton.addEventListener('click', async () => {
+        const chatPrompt = chatPromptInput.value;
+
+        try {
+          const response = await axios.post('http://localhost:5000/createChatCompletion', {
+            chatPrompt: chatPrompt,
+          });
+
+          // Create a <p> element for the user message
+          const userMessage = document.createElement('p');
+          userMessage.textContent = chatPrompt;
+          userMessage.classList.add('user-message');
+
+          // Append the user message to the response container
+          responseContainer.appendChild(userMessage);
+
+          // Display the response message in the response container
+          const responseMessage = response.data.message;
+          const responseParagraph = document.createElement('p');
+          responseParagraph.textContent = responseMessage;
+          responseContainer.appendChild(responseParagraph);
+
+          // Clear the textarea
+          chatPromptInput.value = '';
+        } catch (error) {
+          console.error('Failed to generate response:', error);
+        }
+      });
+    </script>
+  </body>
+</html>
