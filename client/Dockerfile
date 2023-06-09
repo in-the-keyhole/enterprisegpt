@@ -5,12 +5,10 @@
 FROM node:14-alpine AS build
 
 # Set the working directory inside the container to /app.
-# Any command that is run will now run from within this directory.
 WORKDIR /app
 
 # Copy package.json and package-lock.json (if available) into the workdir in the Docker container.
-# These files define the Node.js app and its dependencies.
-# The reason why COPY package*.json ./ is needed here before COPY . . is to leverage the Docker layer caching mechanism. Docker builds an image by creating layers 
+# The reason why `COPY package*.json ./` is needed here before `COPY . .` is to leverage the Docker layer caching mechanism. Docker builds an image by creating layers 
 # for each instruction in the Dockerfile. Each layer is cached and reused if the instruction does not change. This can speed up the build process and save disk space.
 # In this case, the RUN npm install instruction depends on the package*.json files, which contain the dependencies for the Node.js app. If these files change, 
 # the RUN npm install instruction will be executed again and create a new layer. However, if these files do not change, but some other files in the app directory do, 
@@ -19,12 +17,10 @@ WORKDIR /app
 # before running npm install, then any change in any file will trigger a new npm install, which is inefficient and wasteful.
 COPY package*.json ./
 
-# Run the npm install command within the Docker container. 
-# This will install all dependencies defined in the package.json file.
+# Install dependencies.
 RUN npm install
 
-# Copy all files from your local filesystem into the workdir of the Docker container. 
-# In this case, it would be everything in the current directory (expressed as .) into /app.
+# Copy all files from your local filesystem into the workdir of the Docker container.
 COPY . .
 
 # Run the build script defined in package.json within the Docker container.

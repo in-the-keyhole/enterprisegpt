@@ -13,7 +13,8 @@ function App(): JSX.Element {
 
   const handleSendMessage = async (): Promise<void> => {
     try {
-      const response = await axios.post('http://api:5000/createChatCompletion', {
+      // Port 5001 should match the API_PORT in .env file.
+      const response = await axios.post('http://api:5001/createChatCompletion', {
         chatPrompt: chatPrompt,
       });
 
