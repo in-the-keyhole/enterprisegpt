@@ -1,7 +1,19 @@
 # EnterpriseGPT
-EnterpriseGPT is an open-source web application built on top of OpenAI's GPT-4. It's designed for enterprise IT organizations who wish to utilize the AI model while ensuring their source code isn't submitted for analysis. This is achieved through a custom filtering mechanism within the application.
+EnterpriseGPT is an open-source web application built on top of OpenAI's GPT-3.5. It's designed for enterprise IT organizations who wish to utilize the AI model while ensuring their source code isn't submitted for analysis. This is achieved through a custom filtering mechanism within the application.
 
-EnterpriseGPT is dockerized for easy deployment and is built using Vite with React and TypeScript for the front-end and Node.js Express for the back-end.
+EnterpriseGPT is dockerized for easy deployment and is built using Vite with React and TypeScript for the client and Node.js Express for the API.
+
+> # **IMPORTANT**: Temporary Testing Setup in Place
+>
+> Due to a current challenge with the API call from the client container to the API container, we have implemented a temporary measure for testing. A set of files - `index.js`, `home.html`, `package.json`, and `package-lock.json` - have been included in the root directory. 
+>
+> These files exist to provide a short-term solution that enables testing of the OpenAI chat completion endpoints, ensuring you can successfully interact with ChatGPT. To utilize this temporary testing environment, proceed with the following steps:
+>
+> 1. Navigate to the project's root directory.
+> 2. Install the necessary dependencies by executing `npm install`.
+> 3. Launch the application with `node index.js`.
+> 
+> Please be aware that this arrangement is temporary. The aforementioned files are intended to be removed from the root directory once the issues with the React and Node.js POST endpoint are resolved. At that time this documentation warning will stay in place.
 
 ## Prerequisites
 Make sure you have the following installed on your machine before proceeding:
@@ -25,51 +37,43 @@ The root level `package.json` file has several scripts to simplify the process o
     git clone https://github.com/in-the-keyhole/enterprisegpt
     cd enterprisegpt
     ```
-
 2. Start Docker Desktop: Before you start the application, ensure Docker Desktop is running. Docker Desktop is an application, so you can start it like any other application on your system. For Linux users, Docker service can be started with `sudo systemctl start docker` or `sudo service docker start`.
-
 3. Setup Environment Variables: Copy the `.env.template` file and create a new file named `.env` in the root of the project. Update this new `.env` file with your specific values.
-
 4. Install the root level project dependencies with `npm install`.
-
-5. Run the application with npm:
+5. Run the application with Docker:
     ```bash
-    npm run start
+    docker-compose build && docker-compose up
     ```
-    The `start` script will build the Docker images and then start the Docker containers.
-
-    **Note:** The `npm run start` command will automatically run `docker-compose build` and `docker-compose up` for you. If you need to manually rebuild the images or restart the containers, you can still use these commands separately.
-
-6. If you want to refresh your Docker containers completely - taking down existing containers, rebuilding the image, and starting the containers again, you can use the `start:fresh` script:
+    The above command will build the Docker images and start the Docker containers.
+6. If you want to refresh your Docker containers completely, taking down existing containers, rebuilding the image, and starting the containers again, you can use the following command:
     ```bash
-    npm run start:fresh
+    docker-compose down && docker-compose build --no-cache && docker-compose up
     ```
-    > **Caution:** This command will remove all existing containers for this project and any data stored within those containers.
+    > **Caution:** This command will remove all existing containers for this project, along with any data stored within those containers. Use it with caution and make sure you have a backup of any important data.
 
-Your application should now be running. You can access the frontend at http://localhost:3000 and your backend at http://localhost:5000.
-
+Your application should now be running. You can access the client and API at the ports you specified in the `.env` file. By default, if you haven't made any changes in the .env file, you can access the client at `http://localhost:3000` and the API `http://localhost:5000`.
 
 ## Project Structure & Deployment
-This project utilizes Docker to create and manage the application's environment. Both the front-end and back-end services are dockerized, enabling seamless deployment and scaling.
+This project utilizes Docker to create and manage the application's environment. Both the client and API services are dockerized, enabling seamless deployment and scaling.
 
-The back-end service, an Express server, is straightforward to dockerize: its [Dockerfile](../react-frontend/Dockerfile) simply sets up a Node.js environment, installs the necessary packages, and starts the server.
+The API service, an Express server, is straightforward to dockerize: its [Dockerfile](../client/Dockerfile) simply sets up a Node.js environment, installs the necessary packages, and starts the server.
 
-The front-end service, however, requires a slightly different approach due to its use of Vite. Vite provides a development server that optimizes module loading for faster feedback during development. However, it's not designed to be a production server.
+The client service, however, requires a slightly different approach due to its use of Vite. Vite provides a development server that optimizes module loading for faster feedback during development. However, it's not designed to be a production server.
 
-To work around this, we use a multi-stage Docker build for the front-end. In this [Dockerfile](../react-frontend/Dockerfile) the first stage uses a Node.js environment to create a production-ready build of the React app with Vite. In the second stage, we use an NGINX server to serve this static build.
+To work around this, we use a multi-stage Docker build for the client. In this [Dockerfile](../client/Dockerfile) the first stage uses a Node.js environment to create a production-ready build of the React app with Vite. In the second stage, we use an NGINX server to serve this static build.
 
-This approach allows the front-end service to be effectively dockerized and ensures robustness and performance in production. The [docker-compose.yml](../docker-compose.yml) correctly maps the ports, with the front-end container mapped to port 3000 on your host machine. 
+This approach allows the client service to be effectively dockerized and ensures robustness and performance in production. The [docker-compose.yml](../docker-compose.yml) correctly maps the ports, with the client container mapped to port 3000 on your host machine. 
 
-For API calls from the front-end to the back-end, we use http://express-backend:5000 as the base URL. This is because Docker compose creates a default network where containers can reach each other by their service names.
+For API calls from the client to the API, we use http://api:5000 as the base URL. This is because Docker compose creates a default network where containers can reach each other by their service names.
 
-## Back-end documentation
-Refer to the `express-backend` [README.md](./express-backend/README.md).
+## API documentation
+Refer to the `API` [README.md](./api/README.md).
 
-## Front-end documentation
-Refer to the `react-frontend` [README.md](./react-frontend/README.md).
+## Client documentation
+Refer to the `client` [README.md](./client/README.md).
 
-## Custom Startup Message for the React Frontend
-Refer to the `react-frontend` README.md [Custom Startup Message for the React Frontend](./react-frontend/README.md#custom-startup-message-for-the-react-frontend)
+## Custom Startup Message for the React Client
+Refer to the `client` README.md [Custom Startup Message for the React Client](./client/README.md#custom-startup-message-for-the-client)
 
 ## Contributing
 Created and maintained by Keyhole Software on [github](https://github.com/in-the-keyhole).
