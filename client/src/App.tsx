@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import './App.css';
 import ChatCompletion from './ChatCompletion';
@@ -30,7 +30,7 @@ function App(): JSX.Element {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <div className="header">
         <h1>ChatGPT: Source Code Restricted</h1>
         <p>Powered by EnterpriseGPT: A secure and intelligent chat assistant.</p>
@@ -58,7 +58,7 @@ function App(): JSX.Element {
           </button>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 

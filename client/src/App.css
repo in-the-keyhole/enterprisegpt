@@ -79,6 +79,7 @@ h1 {
 
 .input-container textarea {
   background-color: #ffffff;
+  color: #000000;
   flex-grow: 1;
   padding: 0.5rem;
   width: 600px;
