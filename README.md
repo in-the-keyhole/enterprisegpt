@@ -5,7 +5,7 @@ EnterpriseGPT is dockerized for easy deployment and is built using Vite with Rea
 
 > # **IMPORTANT**: Temporary Testing Setup in Place
 >
-> Due to a current challenge with the API call from the client container to the API container, we have implemented a temporary measure for testing. A set of files - `index.js`, `home.html`, `package.json`, and `package-lock.json` - have been included in the root directory. 
+> Due to a current challenge with the API call from the client container to the API container, we have implemented a temporary measure for testing. A set of files - `index.js`, `home.html`, `package.json`, and `package-lock.json` - have been included in the root directory. We've also included `"express": "^4.18.2"`, `"openai": "^3.2.1"`, and `"nodemon": "^2.0.22"` package dependencies in the root package.json. These should also be removed once the container communication is resolved. These package dependencies were only included to make the root `index.js` and `home.html` work temporarily.
 >
 > These files exist to provide a short-term solution that enables testing of the OpenAI chat completion endpoints, ensuring you can successfully interact with ChatGPT. To utilize this temporary testing environment, proceed with the following steps:
 >
