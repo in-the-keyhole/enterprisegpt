@@ -3,4 +3,7 @@
 # If a shell script uses CRLF (Carriage Return Line Feed) line endings, which are standard on Windows systems, it can cause issues when the script is run 
 # in a Unix-like environment. Therefore, this setting ensures that regardless of which system you're working on (Windows, macOS, Linux), Git will maintain 
 # LF line endings for all .sh files in your repository, preventing potential line ending issues when running these scripts.
+* text=auto
+*.js text eol=lf
+*.json text eol=lf
 *.sh text eol=lf

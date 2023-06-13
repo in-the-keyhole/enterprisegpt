@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 
 // Get the api port from the environment variables
-const apiPort = process.env.API_PORT || 5000;
+const apiPort = process.env.API_PORT || 5001;
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,

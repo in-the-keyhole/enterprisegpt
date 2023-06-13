@@ -1,23 +1,25 @@
 body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
   background-color: #222222;
   color: #ffffff;
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
 }
 
 .header {
-  padding: 1rem;
-  background-color: #111111;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 2;
+  padding: 1rem;
+  background-color: #111111;
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
-  z-index: 1;
 }
 
 h1 {
@@ -26,24 +28,26 @@ h1 {
 }
 
 .content {
+  position: absolute;
   top: 0;
-  padding-top: 12rem;
-  position: fixed;
   width: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
+  justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
 .response-container {
+  padding: 175px 0 150px 0;
   width: 800px;
   min-width: 600px;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: auto;
+  max-height: 100%;
+  overflow-y: hidden;
 }
 
-.response-container p {
+.response-container div {
   color: #ffffff;
   text-align: left;
   line-height: 1.5;
@@ -52,20 +56,25 @@ h1 {
   padding: 0.5rem;
 }
 
-.response-container p.user-message {
+.response-container div.user-message {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+.response-container .warning {
+  color: red;
+}
+
 .footer {
-  padding: 1rem;
   position: fixed;
   bottom: 0;
-  left: 0;
   width: 100%;
+  z-index: 2;
+  padding: 1rem;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  background-color: #222222;
 }
 
 .input-container {

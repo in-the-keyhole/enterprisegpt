@@ -1,7 +1,8 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "",
+  "description": "EnterpriseGPT Node.js (Express) API.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -10,7 +11,6 @@
   "keywords": [],
   "author": "Keyhole Software",
   "license": "Apache-2.0",
-  "type": "module",
   "dependencies": {
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
