@@ -10,6 +10,21 @@ interface IMessage {
   isWarning?: boolean; // This property will be true when the message includes source code and is a warning.
 }
 
+interface FormattedMessageProps {
+  text: string;
+}
+
+const FormattedMessage: React.FC<FormattedMessageProps> = ({ text }) => {
+  const formattedText = text.split(/(`[^`]*`)/).map((segment, index) => {
+    if (segment.startsWith('`') && segment.endsWith('`')) {
+      return <code key={index} className="code">{segment.slice(1, -1)}</code>;
+    }
+    return segment;
+  });
+
+  return <>{formattedText}</>;
+};
+
 function App(): JSX.Element {
   const [chatPrompt, setChatPrompt] = useState<string>('');
   const [messages, setMessages] = useState<IMessage[]>([]);
@@ -37,19 +52,23 @@ function App(): JSX.Element {
     }
 
     try {
+      // Always add this formatting message to wrap code in ` or ``` symbols so ChatGPT will always return code wrapped in this syntax. 
+      // This works together with the const FormatMessage.
+      setChatPrompt(chatPrompt + " - Please wrap any code returned in the response with the ` or ``` formatting so I can display the code correctly.")
+
       // Add the user's message to the conversation
       setMessages((prevMessages) => [...prevMessages, { text: chatPrompt, isUser: true }]);
 
       // Add a loading spinner
       setMessages((prevMessages) => [...prevMessages, { text: 'Loading...', isUser: false, isLoading: true }]);
 
+      // Reset chat prompt
+      setChatPrompt('');
+
       // Port 5001 should match the API_PORT in .env file.
       const response = await axios.post('http://localhost:5001/createChatCompletion', {
         chatPrompt: chatPrompt,
       });
-
-      // Reset chat prompt
-      setChatPrompt('');
 
       // Remove the loading spinner and add the AI's response to the conversation
       setMessages((prevMessages) => {
@@ -85,7 +104,7 @@ function App(): JSX.Element {
               key={index} 
               className={`${message.isUser ? 'user-message' : 'response-message'} ${message.isWarning ? 'warning' : ''}`}
             >
-              {message.isLoading ? <Spinner /> : message.text}
+              {message.isLoading ? <Spinner /> : <FormattedMessage text={message.text} />}
             </div>
           ))}
           {/* A dummy div at the end of the list with our messagesEndRef ref */}

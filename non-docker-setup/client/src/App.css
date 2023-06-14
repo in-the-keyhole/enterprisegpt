@@ -111,3 +111,8 @@ h1 {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.code {
+  color: #d69d85;
+  font-family: monospace;
+}

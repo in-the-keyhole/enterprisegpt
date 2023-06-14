@@ -32,5 +32,5 @@ export const isCodeDetected = (chatPrompt: string): boolean => {
     shortLinePercentage = shortLines.length / lines.length;
   }
   
-  return percentageOfCode > CODE_MATCH_THRESHOLD && shortLinePercentage > SHORT_LINE_THRESHOLD;
+  return percentageOfCode > CODE_MATCH_THRESHOLD || shortLinePercentage > SHORT_LINE_THRESHOLD;
 }
