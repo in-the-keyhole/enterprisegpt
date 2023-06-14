@@ -101,6 +101,13 @@ function App(): JSX.Element {
             rows={1}
             value={chatPrompt}
             onChange={handleInputChange}
+            onKeyDown={async (event) => {
+              // Allows the user to send a message with the Enter key. Shift + Enter moves the cursor to the next line.
+              if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                await handleSendMessage();
+              }
+            }}
           />
           <button id="sendButton" onClick={handleSendMessage}>
             Send Message
