@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
+import { FormattedMessage } from './components/FormattedMessage';
 
 interface IMessage {
   text: string;
@@ -29,7 +30,7 @@ function App(): JSX.Element {
       setMessages((prevMessages) => [
         ...prevMessages, 
         { text: chatPrompt, isUser: true }, 
-        { text: 'Source code is not permitted.', isUser: false, isWarning: true } // Set isWarning to true
+        { text: 'Source code is restricted.', isUser: false, isWarning: true } // Set isWarning to true
       ]);
 
       setChatPrompt(''); // Reset the chat prompt
@@ -43,13 +44,13 @@ function App(): JSX.Element {
       // Add a loading spinner
       setMessages((prevMessages) => [...prevMessages, { text: 'Loading...', isUser: false, isLoading: true }]);
 
+      // Reset chat prompt
+      setChatPrompt('');
+
       // Port 5001 should match the API_PORT in .env file.
       const response = await axios.post('http://api:5001/createChatCompletion', {
         chatPrompt: chatPrompt,
       });
-
-      // Reset chat prompt
-      setChatPrompt('');
 
       // Remove the loading spinner and add the AI's response to the conversation
       setMessages((prevMessages) => {
@@ -85,7 +86,7 @@ function App(): JSX.Element {
               key={index} 
               className={`${message.isUser ? 'user-message' : 'response-message'} ${message.isWarning ? 'warning' : ''}`}
             >
-              {message.isLoading ? <Spinner /> : message.text}
+              {message.isLoading ? <Spinner /> : <FormattedMessage text={message.text} />}
             </div>
           ))}
           {/* A dummy div at the end of the list with our messagesEndRef ref */}
@@ -97,10 +98,17 @@ function App(): JSX.Element {
         <div className="input-container">
           <textarea
             id="chatPromptInput"
-            placeholder="Enter a detailed message or question. Source code not permitted."
+            placeholder="Enter a detailed message or question. Source code is restricted."
             rows={1}
             value={chatPrompt}
             onChange={handleInputChange}
+            onKeyDown={async (event) => {
+              // Allows the user to send a message with the Enter key. Shift + Enter moves the cursor to the next line.
+              if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                await handleSendMessage();
+              }
+            }}
           />
           <button id="sendButton" onClick={handleSendMessage}>
             Send Message

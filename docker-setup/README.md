@@ -20,14 +20,11 @@ Make sure you have the following installed on your machine before proceeding:
     cd enterprisegpt/docker-setup
     ```
 1. Ensure Docker Desktop is running. For Linux, start Docker service with `sudo systemctl start docker` or `sudo service docker start`.
-
 1. Set up Environment Variables: Copy `docker-setup/.env.template` to a new file named `.env` in the same `docker-setup` folder. Update the `.env` file with your values, including the `OPENAI_API_KEY`. 
 
     > *To obtain the OpenAI API key, please refer to the [OpenAI documentation](https://platform.openai.com/account/api-keys).*
-
+    >
     > *Note: The API runs on port 5001 and the Client on port 3000 by default. If these ports aren't available, specify different ones in `docker-setup/.env` at `API_PORT` and `CLIENT_PORT` respectively.*
-
-
 1. Install the project dependencies with `npm install`.
 1. Start the application with Docker:
     ```bash

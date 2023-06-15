@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
+import { FormattedMessage } from './components/FormattedMessage';
 
 interface IMessage {
   text: string;
@@ -9,21 +10,6 @@ interface IMessage {
   isLoading?: boolean;
   isWarning?: boolean; // This property will be true when the message includes source code and is a warning.
 }
-
-interface FormattedMessageProps {
-  text: string;
-}
-
-const FormattedMessage: React.FC<FormattedMessageProps> = ({ text }) => {
-  const formattedText = text.split(/(`[^`]*`)/).map((segment, index) => {
-    if (segment.startsWith('`') && segment.endsWith('`')) {
-      return <code key={index} className="code">{segment.slice(1, -1)}</code>;
-    }
-    return segment;
-  });
-
-  return <>{formattedText}</>;
-};
 
 function App(): JSX.Element {
   const [chatPrompt, setChatPrompt] = useState<string>('');
@@ -44,7 +30,7 @@ function App(): JSX.Element {
       setMessages((prevMessages) => [
         ...prevMessages, 
         { text: chatPrompt, isUser: true }, 
-        { text: 'Source code is not permitted.', isUser: false, isWarning: true } // Set isWarning to true
+        { text: 'Source code is restricted.', isUser: false, isWarning: true } // Set isWarning to true
       ]);
 
       setChatPrompt(''); // Reset the chat prompt
@@ -52,10 +38,6 @@ function App(): JSX.Element {
     }
 
     try {
-      // Always add this formatting message to wrap code in ` or ``` symbols so ChatGPT will always return code wrapped in this syntax. 
-      // This works together with the const FormatMessage.
-      setChatPrompt(chatPrompt + " - Please wrap any code returned in the response with the ` or ``` formatting so I can display the code correctly.")
-
       // Add the user's message to the conversation
       setMessages((prevMessages) => [...prevMessages, { text: chatPrompt, isUser: true }]);
 
@@ -116,7 +98,7 @@ function App(): JSX.Element {
         <div className="input-container">
           <textarea
             id="chatPromptInput"
-            placeholder="Enter a detailed message or question. Source code not permitted."
+            placeholder="Enter a detailed message or question. Source code is restricted."
             rows={1}
             value={chatPrompt}
             onChange={handleInputChange}

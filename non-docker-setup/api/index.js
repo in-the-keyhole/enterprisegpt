@@ -43,23 +43,27 @@ app.get('/', async (req, res) => {
 
 app.post('/createChatCompletion', async (req, res) => {
   const { chatPrompt } = req.body;
-  
+
   try {
     const completionResponse = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       messages: [
         {
-          role: 'user', // Required
-          content: chatPrompt, // Required
+          role: 'system',
+          content: `You: You can format code using triple backticks (\`\`\`).\n\nAssistant: When providing the code response, please include an empty line before the code block and an empty line after it to separate it from the message.\n\nAssistant: To format a bulleted or numbered list, start each item on a new line. For a bulleted list, use a dash (-) or an asterisk (*). For a numbered list, use a number followed by a period (e.g., 1., 2.).`
+        },
+        {
+          role: 'user',
+          content: chatPrompt,
         },
       ],
       temperature: 1, // Optional - Defaults to 1,
       top_p: 1, // Optional - Defaults to 1,
       n: 1, // Optional - Defaults to 1,
     });
-  
+
     const message = completionResponse.data.choices[0].message.content;
-  
+
     res.json({ message });
   } catch (error) {
     console.error('Failed to generate response:', error);
