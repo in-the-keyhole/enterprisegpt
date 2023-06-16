@@ -1,22 +1,3 @@
-# Comments:
-# version: This indicates the version of Docker Compose file format. It should match your Docker Compose version.
-#
-# services: Defines the services that your application consists of.
-#
-# api: This is the service name for the api server.
-#   build: Instructs Docker to build an image using the Dockerfile in the api directory.
-#   ports: Maps the port inside Docker as specified by the environment variable API_PORT to the same port on the host.
-#   environment: Defines environment variables that will be passed into the Docker container.
-#     API_PORT: Will be used in your Node.js Express app to listen on this port.
-#     OPENAI_API_KEY: Is passed into your Docker container to be used in your application for OpenAI API calls.
-#
-# client: This is the service name for the client application.
-#   build: Instructs Docker to build an image using the Dockerfile in the client directory.
-#   ports: Maps the port inside Docker as specified by the environment variable CLIENT_PORT to port 80 on the host.
-#   environment: Defines environment variables that will be passed into the Docker container.
-#     CLIENT_PORT: Will be used in your Nginx configuration to determine where the React app is served from.
-#   depends_on: Defines the dependency of the client service on the api service. Docker Compose will start services in dependency order.
-
 version: '3.8'
 
 services:
@@ -42,3 +23,35 @@ services:
       - CLIENT_PORT=${CLIENT_PORT}
     depends_on:
       - api
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./client:/app
+
+# Comments:
+# version: This indicates the version of Docker Compose file format. It should match your Docker Compose version.
+#
+# services: Defines the services that your application consists of.
+#
+# api: This is the service name for the API server.
+#   build: Instructs Docker to build an image using the Dockerfile in the api directory.
+#   ports: Maps the port inside Docker as specified by the environment variable API_PORT to the same port on the host.
+#   environment: Defines environment variables that will be passed into the Docker container.
+#     API_PORT: Will be used in your Node.js Express app to listen on this port.
+#     OPENAI_API_KEY: Is passed into your Docker container to be used in your application for OpenAI API calls.
+#
+# client: This is the service name for the client application.
+#   build: Instructs Docker to build an image using the Dockerfile in the client directory.
+#   ports: Maps the CLIENT_PORT (defined in the root .env file) on the host to port 80 in the Docker container, where the Nginx server listens by default.
+#          This configuration forwards HTTP traffic arriving at CLIENT_PORT on the host to port 80 inside the Docker container.
+#   environment: Defines environment variables that will be passed into the Docker container.
+#     CLIENT_PORT: Will be used in your Nginx configuration to determine where the React app is served from.
+#   depends_on: Defines the dependency of the client service on the API service. Docker Compose will start services in dependency order.
+#
+# The following options enable live reloading of changes in the client code during development:
+#   stdin_open: Allocates a pseudo-TTY, allowing interaction with the container.
+#   tty: Allocates a pseudo-TTY, allowing interaction with the container.
+#   volumes: Mounts the host's ./client directory to /app inside the container.
+#            This enables live reloading of changes made in the client code.
+
+# Note: In the client application's package.json file, the "proxy" configuration has been set to redirect API calls from the client to the API server.
