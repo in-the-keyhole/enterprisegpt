@@ -53,5 +53,3 @@ services:
 #   tty: Allocates a pseudo-TTY, allowing interaction with the container.
 #   volumes: Mounts the host's ./client directory to /app inside the container.
 #            This enables live reloading of changes made in the client code.
-
-# Note: In the client application's package.json file, the "proxy" configuration has been set to redirect API calls from the client to the API server.
