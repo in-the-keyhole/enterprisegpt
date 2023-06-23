@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
-import { FormattedMessage } from './components/FormattedMessage';
+import { FormattedMessage, FormattedListMessage } from './components/FormattedMessage';
 
 interface IMessage {
   text: string;
@@ -12,6 +12,8 @@ interface IMessage {
 }
 
 function App(): JSX.Element {
+  const [chatResult, setChatResult] = useState<string>('');
+  const [chatInput, setChatInput] = useState<string>('');
   const [chatPrompt, setChatPrompt] = useState<string>('');
   const [messages, setMessages] = useState<IMessage[]>([]);
   const messagesEndRef = React.useRef<HTMLDivElement>(null); // Define a ref for the end of the messages list
@@ -28,12 +30,12 @@ function App(): JSX.Element {
     // Check if the message includes source code
     if (isCodeDetected(chatPrompt)) {
       setMessages((prevMessages) => [
-        ...prevMessages, 
-        { text: chatPrompt, isUser: true }, 
+        ...prevMessages,
+        { text: chatPrompt, isUser: true },
         { text: 'Source code is restricted.', isUser: false, isWarning: true } // Set isWarning to true
       ]);
 
-      setChatPrompt(''); // Reset the chat prompt
+    //  setChatPrompt(''); // Reset the chat prompt
       return;
     }
 
@@ -44,13 +46,21 @@ function App(): JSX.Element {
       // Add a loading spinner
       setMessages((prevMessages) => [...prevMessages, { text: 'Loading...', isUser: false, isLoading: true }]);
 
-      // Reset chat prompt
-      setChatPrompt('');
+  
 
       // Port 5001 should match the API_PORT in .env file.
       const response = await axios.post('http://localhost:5001/createChatCompletion', {
         chatPrompt: chatPrompt,
       });
+
+
+      setChatInput( chatPrompt);
+      setChatResult( response.data.message );
+
+       // Reset chat prompt
+       setChatPrompt('');
+
+
 
       // Remove the loading spinner and add the AI's response to the conversation
       setMessages((prevMessages) => {
@@ -72,27 +82,61 @@ function App(): JSX.Element {
     }
   }, [messages]); // Only re-run the effect if messages changes
 
+
+ React.useState(   );
+
+
   return (
     <React.Fragment>
       <div className="header">
         <h1>ChatGPT: Source Code Restricted</h1>
         <p>Powered by EnterpriseGPT: A secure and intelligent chat assistant.</p>
-      </div>
+    
 
       <div className="content">
+
         <div className="response-container">
+        
           {messages.map((message, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={`${message.isUser ? 'user-message' : 'response-message'} ${message.isWarning ? 'warning' : ''}`}
             >
-              {message.isLoading ? <Spinner /> : <FormattedMessage text={message.text} />}
+
+              {message.isLoading ? <Spinner /> :  <FormattedListMessage text={message.text} /> }
             </div>
           ))}
+
           {/* A dummy div at the end of the list with our messagesEndRef ref */}
-          <div ref={messagesEndRef} />
+          <div className="   " ref={messagesEndRef} />
+
+
         </div>
+
+
+       <div className="response-container">
+       
+            <div className="user-message">
+
+             { <FormattedMessage text={chatInput} />} 
+            </div>
+
+            <div className="response-message">
+
+              {chatResult> '' ? <FormattedMessage text={chatResult} /> : ""} 
+          </div>
+
+
+        
+
+       </div>
+
+
+
+
       </div>
+
+     </div>       
 
       <div className="footer">
         <div className="input-container">

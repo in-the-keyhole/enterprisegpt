@@ -18,7 +18,7 @@ body {
   background-color: #111111;
   justify-content: center;
   align-items: center;
-  display: inline;
+  display: flex;
   flex-direction: column;
 }
 
@@ -28,37 +28,33 @@ h1 {
 }
 
 .content {
- 
+  position: absolute;
+  top: 0;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
   justify-content: center;
   align-items: center;
-  display: inline;
- 
-    
+  display: flex;
+  flex-direction: column;
 }
 
 .response-container {
-  display: inline-block;
-  overflow-x: auto;
-  overflow-y: auto;
-  height: 600px;  
-  
+  padding: 175px 0 150px 0;
+  width: 800px;
+  min-width: 600px;
+  max-height: 100%;
+  overflow-y: hidden;
 }
 
 .response-container div {
-
   color: #ffffff;
   text-align: left;
   line-height: 1.5;
   font-size: 1.2rem;
   margin: 0 0 1rem 2rem;
   padding: 0.5rem;
-  width: 400px;
- 
- 
 }
-
-
-
 
 .response-container div.user-message {
   background-color: rgba(255, 255, 255, 0.1);

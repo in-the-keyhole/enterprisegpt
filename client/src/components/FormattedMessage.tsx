@@ -54,3 +54,13 @@ export const FormattedMessage: React.FC<FormattedMessageProps> = ({ text }) => {
 
   return <>{formattedText}</>;
 }
+
+
+export const FormattedListMessage: React.FC<FormattedMessageProps> = ({ text }) => {
+ 
+
+  let formattedText = text.length > 40 ? text.substring(0,40) + "..." : text;
+
+
+return <>{formattedText}</>;
+}
