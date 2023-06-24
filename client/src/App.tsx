@@ -12,6 +12,7 @@ interface IMessage {
 }
 
 function App(): JSX.Element {
+  const [loading,setLoading] = useState(false);
   const [chatResult, setChatResult] = useState<string>('');
   const [chatInput, setChatInput] = useState<string>('');
   const [chatPrompt, setChatPrompt] = useState<string>('');
@@ -27,15 +28,20 @@ function App(): JSX.Element {
     // If chatPrompt is empty return without sending message
     if (chatPrompt.trim() === '') return;
 
+    setLoading(true);
+
     // Check if the message includes source code
     if (isCodeDetected(chatPrompt)) {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: chatPrompt, isUser: true },
-        { text: 'Source code is restricted.', isUser: false, isWarning: true } // Set isWarning to true
-      ]);
 
-    //  setChatPrompt(''); // Reset the chat prompt
+       setChatResult( 'Source code is restricted.'  );
+
+    //  setMessages((prevMessages) => [
+     //   ...prevMessages,
+     //   { text: chatPrompt, isUser: true },
+     //   { text: 'Source code is restricted.', isUser: false, isWarning: true } // Set isWarning to true
+     // ]);
+
+       setChatPrompt(''); // Reset the chat prompt
       return;
     }
 
@@ -46,7 +52,18 @@ function App(): JSX.Element {
       // Add a loading spinner
       setMessages((prevMessages) => [...prevMessages, { text: 'Loading...', isUser: false, isLoading: true }]);
 
-  
+
+       
+      // Remove the loading spinner and add the AI's response to the conversation
+      setMessages((prevMessages) => {
+        const updatedMessages = prevMessages;
+        updatedMessages.pop();
+        updatedMessages.push({ text: chatResult, isUser: false });
+        return [...updatedMessages];
+      }); 
+
+
+
 
       // Port 5001 should match the API_PORT in .env file.
       const response = await axios.post('http://localhost:5001/createChatCompletion', {
@@ -60,17 +77,13 @@ function App(): JSX.Element {
        // Reset chat prompt
        setChatPrompt('');
 
+       setLoading(false);
 
-
-      // Remove the loading spinner and add the AI's response to the conversation
-      setMessages((prevMessages) => {
-        const updatedMessages = prevMessages;
-        updatedMessages.pop();
-        updatedMessages.push({ text: response.data.message, isUser: false });
-        return [...updatedMessages];
-      });
     } catch (error) {
       console.error('Failed to generate response:', error);
+      setLoading(false);
+      setChatResult("Error: "+error);
+
     }
   };
 
@@ -123,7 +136,9 @@ function App(): JSX.Element {
 
             <div className="response-message">
 
-              {chatResult> '' ? <FormattedMessage text={chatResult} /> : ""} 
+                  {loading ? <Spinner/> : ""} 
+
+                 { chatResult != '' ? <FormattedMessage text={chatResult} /> : ""} 
           </div>
 
 
