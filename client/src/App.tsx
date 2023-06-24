@@ -6,6 +6,7 @@ import { FormattedMessage, FormattedListMessage } from './components/FormattedMe
 
 interface IMessage {
   text: string;
+  response: string;
   isUser: boolean;
   isLoading?: boolean;
   isWarning?: boolean; // This property will be true when the message includes source code and is a warning.
@@ -18,6 +19,13 @@ function App(): JSX.Element {
   const [chatPrompt, setChatPrompt] = useState<string>('');
   const [messages, setMessages] = useState<IMessage[]>([]);
   const messagesEndRef = React.useRef<HTMLDivElement>(null); // Define a ref for the end of the messages list
+
+ 
+  const generateKey = (pre : string) => {
+    return `${ pre }_${ new Date().getTime() }`;
+}
+
+
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     const { value } = event.target;
@@ -47,22 +55,29 @@ function App(): JSX.Element {
 
     try {
       // Add the user's message to the conversation
-      setMessages((prevMessages) => [...prevMessages, { text: chatPrompt, isUser: true }]);
+     
 
       // Add a loading spinner
-      setMessages((prevMessages) => [...prevMessages, { text: 'Loading...', isUser: false, isLoading: true }]);
+    //  setMessages((prevMessages) => [...prevMessages, { text: 'Loading...', isUser: false, isLoading: true }]);
 
 
        
       // Remove the loading spinner and add the AI's response to the conversation
-      setMessages((prevMessages) => {
-        const updatedMessages = prevMessages;
-        updatedMessages.pop();
-        updatedMessages.push({ text: chatResult, isUser: false });
-        return [...updatedMessages];
-      }); 
+     // setMessages((prevMessages) => {
+      //  const updatedMessages = prevMessages;
+       // updatedMessages.pop();
+       // updatedMessages.push({ text: chatResult, isUser: false });
+       // return [...updatedMessages];
+     // }); 
 
 
+     if (chatInput != '') {
+      setMessages((prevMessages) => [...prevMessages, { text: chatInput, response: chatResult, isUser: true }]);
+     }
+
+
+     setChatInput(chatPrompt);
+      setChatResult("");
 
 
       // Port 5001 should match the API_PORT in .env file.
@@ -71,8 +86,10 @@ function App(): JSX.Element {
       });
 
 
-      setChatInput( chatPrompt);
+      
       setChatResult( response.data.message );
+
+//      setMessages((prevMessages) => [...prevMessages, { text: chatPrompt, response: response.data.message, isUser: true }]);
 
        // Reset chat prompt
        setChatPrompt('');
@@ -96,9 +113,6 @@ function App(): JSX.Element {
   }, [messages]); // Only re-run the effect if messages changes
 
 
- React.useState(   );
-
-
   return (
     <React.Fragment>
       <div className="header">
@@ -109,38 +123,48 @@ function App(): JSX.Element {
       <div className="content">
 
         <div className="response-container">
+      
         
           {messages.map((message, index) => (
-            <div
-              key={index}
-              className={`${message.isUser ? 'user-message' : 'response-message'} ${message.isWarning ? 'warning' : ''}`}
-            >
 
-              {message.isLoading ? <Spinner /> :  <FormattedListMessage text={message.text} /> }
+          <>
+            <div
+              key={"userlist"+index}
+              className='user-message'>
+              <FormattedListMessage text={message.text} />
             </div>
+            
+            <div key={generateKey("responselist"+index)} className='response-message'>
+
+            <FormattedListMessage text={message.response} />
+
+            </div>  
+            
+          </> 
+            
           ))}
 
-          {/* A dummy div at the end of the list with our messagesEndRef ref */}
-          <div className="   " ref={messagesEndRef} />
+         
+
 
 
         </div>
 
 
-       <div className="response-container">
+       <div className="response-container"  >
        
-            <div className="user-message">
+            <div  className="user-message">
 
              { <FormattedMessage text={chatInput} />} 
             </div>
 
-            <div className="response-message">
+            <div  className="response-message">
 
-                  {loading ? <Spinner/> : ""} 
+                 {loading ? <Spinner /> : ""} 
 
                  { chatResult != '' ? <FormattedMessage text={chatResult} /> : ""} 
           </div>
-
+ 
 
         
 
