@@ -3,6 +3,7 @@ import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, FormattedListMessage } from './components/FormattedMessage';
+import { MdDelete } from "react-icons/md";
 
 interface IMessage {
   text: string;
@@ -13,18 +14,24 @@ interface IMessage {
 }
 
 function App(): JSX.Element {
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [chatResult, setChatResult] = useState<string>('');
   const [chatInput, setChatInput] = useState<string>('');
   const [chatPrompt, setChatPrompt] = useState<string>('');
   const [messages, setMessages] = useState<IMessage[]>([]);
   const messagesEndRef = React.useRef<HTMLDivElement>(null); // Define a ref for the end of the messages list
 
- 
-  const generateKey = (pre : string) => {
-    return `${ pre }_${ new Date().getTime() }`;
-}
 
+  const generateKey = (pre: string) => {
+    return `${pre}_${new Date().getTime()}`;
+  }
+
+  const select = (user: string, response: string) => {
+
+    setChatInput(user);
+    setChatResult(response);
+
+  }
 
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
@@ -41,42 +48,22 @@ function App(): JSX.Element {
     // Check if the message includes source code
     if (isCodeDetected(chatPrompt)) {
 
-       setChatResult( 'Source code is restricted.'  );
+      setChatResult('Source code is restricted.');
 
-    //  setMessages((prevMessages) => [
-     //   ...prevMessages,
-     //   { text: chatPrompt, isUser: true },
-     //   { text: 'Source code is restricted.', isUser: false, isWarning: true } // Set isWarning to true
-     // ]);
 
-       setChatPrompt(''); // Reset the chat prompt
+      setChatPrompt(''); // Reset the chat prompt
       return;
     }
 
     try {
-      // Add the user's message to the conversation
-     
-
-      // Add a loading spinner
-    //  setMessages((prevMessages) => [...prevMessages, { text: 'Loading...', isUser: false, isLoading: true }]);
 
 
-       
-      // Remove the loading spinner and add the AI's response to the conversation
-     // setMessages((prevMessages) => {
-      //  const updatedMessages = prevMessages;
-       // updatedMessages.pop();
-       // updatedMessages.push({ text: chatResult, isUser: false });
-       // return [...updatedMessages];
-     // }); 
+      //   if (chatInput != '') {
+      //   setMessages((prevMessages) => [...prevMessages, { text: chatInput, response: chatResult, isUser: true }]);
+      //  }
 
 
-     if (chatInput != '') {
-      setMessages((prevMessages) => [...prevMessages, { text: chatInput, response: chatResult, isUser: true }]);
-     }
-
-
-     setChatInput(chatPrompt);
+      setChatInput(chatPrompt);
       setChatResult("");
 
 
@@ -86,20 +73,25 @@ function App(): JSX.Element {
       });
 
 
-      
-      setChatResult( response.data.message );
+     
+      setMessages((prevMessages) => [...prevMessages, { text: chatPrompt, response: response.data.message, isUser: true }]);
 
-//      setMessages((prevMessages) => [...prevMessages, { text: chatPrompt, response: response.data.message, isUser: true }]);
+
+
+      setChatResult(response.data.message);
+
 
        // Reset chat prompt
        setChatPrompt('');
 
-       setLoading(false);
+
+
+      setLoading(false);
 
     } catch (error) {
       console.error('Failed to generate response:', error);
       setLoading(false);
-      setChatResult("Error: "+error);
+      setChatResult("Error: " + error);
 
     }
   };
@@ -116,66 +108,71 @@ function App(): JSX.Element {
   return (
     <React.Fragment>
       <div className="header">
-        <h1>ChatGPT: Source Code Restricted</h1>
-        <p>Powered by EnterpriseGPT: A secure and intelligent chat assistant.</p>
-    
+        <h2>Enterprise ChatGPT</h2>
+        <p>Powered by <a href="https://keyholesoftware.com" target='_blank'> Keyhole Software</a> </p>
 
-      <div className="content">
 
-        <div className="response-container">
-      
-        
-          {messages.map((message, index) => (
+        <div className="content">
 
-          <>
-            <div
-              key={"userlist"+index}
-              className='user-message'>
-              <FormattedListMessage text={message.text} />
+          <div className="response-container">
+
+
+            <div className="toolbar"> <MdDelete />   </div>
+
+            {messages.map((message, index) => (
+
+
+              <div className="response-select">
+                <div onClick={() => select(message.text, message.response)}
+                  key={"userlist" + index}
+                  className='user-message'>
+                  <FormattedListMessage text={message.text} />
+                </div>
+
+                <div key={generateKey("responselist" + index)} className='response-message'>
+
+                  <FormattedListMessage text={message.response} />
+
+                </div>
+
+              </div>
+
+
+
+            ))}
+
+
+
+
+
+          </div>
+
+
+          <div className="response-container"  >
+
+            <div className="user-message">
+
+              {<FormattedMessage text={chatInput} />}
             </div>
-            
-            <div key={generateKey("responselist"+index)} className='response-message'>
 
-            <FormattedListMessage text={message.response} />
+            <div className="response-message">
 
-            </div>  
-            
-          </> 
-            
-          ))}
+              {loading ? <Spinner /> : ""}
 
-         
+              {chatResult != '' ? <FormattedMessage text={chatResult} /> : ""}
+            </div>
+
+
+
+
+          </div>
+
 
 
 
         </div>
 
-
-       <div className="response-container"  >
-       
-            <div  className="user-message">
-
-             { <FormattedMessage text={chatInput} />} 
-            </div>
-
-            <div  className="response-message">
-
-                 {loading ? <Spinner /> : ""} 
-
-                 { chatResult != '' ? <FormattedMessage text={chatResult} /> : ""} 
-          </div>
- 
-
-        
-
-       </div>
-
-
-
-
       </div>
-
-     </div>       
 
       <div className="footer">
         <div className="input-container">
