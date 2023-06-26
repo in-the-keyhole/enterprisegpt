@@ -3,6 +3,8 @@ EnterpriseGPT is an open-source web application built on top of OpenAI's GPT-3.5
 
 # Node Setup 
 
+Follow the steps below to run EnterpriseGPT from a Node.js environment
+
 1. Clone the repository
 2. Install and run client
    ```bash
