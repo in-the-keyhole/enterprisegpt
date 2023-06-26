@@ -154,9 +154,6 @@ function App(): JSX.Element {
             {chatResult != '' ? <FormattedMessage text={chatResult} /> : ""}
           </div>
 
-        </div>
-
-      </div>
 
       <div className="footer">
         <div className="input-container">
@@ -178,7 +175,17 @@ function App(): JSX.Element {
             Send Message
           </button>
         </div>
+      </div>    
+
+
+
+
+
+        </div>
+
       </div>
+
+    
     </React.Fragment>
   );
 }
