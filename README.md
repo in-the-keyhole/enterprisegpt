@@ -4,13 +4,17 @@ EnterpriseGPT is an open-source web application built on top of OpenAI's GPT-3.5
 # Node Setup 
 
 1. Clone the repository
-2. Install client dependencies
+2. Install and run client
    ```bash
    $ cd client
    $ npm install 
-3. 
-
-
+   $ npm run dev
+3. Install api dependencies
+   ```bash
+   $ cd api client
+   $ npm install
+   $ npm run start
+4. Open [http://localhost:5173](http://localhost:5173/) in a browser
 
 # Docker Setup
 
