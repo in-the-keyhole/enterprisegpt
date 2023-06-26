@@ -9,17 +9,17 @@ body {
 }
 
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2;
-  padding: 1rem;
-  background-color: #111111;
-  justify-content: center;
-  align-items: center;
-  display: inline;
-  flex-direction: column;
+
+  position: relative;
+  width: 50%; 
+  font-size: 1.25rem;
+  color: #ffffff;
+  text-align: left;
+  line-height: 1.5;
+  margin: 0 0 1rem 2rem;
+  padding: 0.5rem;
+ 
+
 }
 
 h1 {
@@ -28,18 +28,45 @@ h1 {
 }
 
 .content {
- 
-  justify-content: center;
-  align-items: center;
-  display: inline;
- 
+  float: left; 
+  width: 50%; 
+  font-size: 1.25rem;
+  color: #ffffff;
+  text-align: left;
+  line-height: 1.5;
+  margin: 0 0 1rem 2rem;
+  padding: 0.5rem;
     
 }
+
+.left {
+
+  position: absolute;
+  overflow-y: auto;
+  background-color:rgb(94, 93, 93);
+
+
+
+}
+
+
+.right {
+  position: absolute;
+  margin-left: 55%; 
+  font-size: 1.25rem;
+  width: 75%;
+  overflow: auto;
+  
+};
+
+
+
+
 
 .toolbar {
   height: 24px;
   border-radius: 5px;
-  color: black;
+  color: white;
   text-align: right; 
   align-items: right;
   display: inline-block;
@@ -48,29 +75,24 @@ h1 {
 }
 
 .response-container {
+
+    
   display: inline-block;
-  overflow-x: auto;
-  overflow-y: auto;
-  height: 600px;  
+
+
   
 }
 
-.response-container div {
 
-  color: #ffffff;
-  text-align: left;
-  line-height: 1.5;
-  font-size: 1.2rem;
-  padding: 0.5rem;
-  width: 400px;
- 
-}
+.left div.user-message {
 
- 
+  color: #009688;
+  font-size: 1.40rem;
+ }
 
-.response-container div.user-message {
-  font-size: 1.5rem;
-  color:  #009688;
+.right div.user-message {
+
+ color: #009688;
 }
 
 
@@ -80,9 +102,6 @@ h1 {
 
 
 .response-container div.response-select {
-  border: solid;
-  border-radius: 4px;
-  border-color: lightslategray;
   
 
  
@@ -91,7 +110,7 @@ h1 {
 
 
 .response-container .warning {
-  color: red;
+ 
 }
 
 .footer {

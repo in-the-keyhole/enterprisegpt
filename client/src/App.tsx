@@ -73,7 +73,7 @@ function App(): JSX.Element {
       });
 
 
-     
+
       setMessages((prevMessages) => [...prevMessages, { text: chatPrompt, response: response.data.message, isUser: true }]);
 
 
@@ -81,8 +81,8 @@ function App(): JSX.Element {
       setChatResult(response.data.message);
 
 
-       // Reset chat prompt
-       setChatPrompt('');
+      // Reset chat prompt
+      setChatPrompt('');
 
 
 
@@ -108,16 +108,9 @@ function App(): JSX.Element {
   return (
     <React.Fragment>
       <div className="header">
-        <h2>Enterprise ChatGPT</h2>
-        <p>Powered by <a href="https://keyholesoftware.com" target='_blank'> Keyhole Software</a> </p>
-
-
-        <div className="content">
-
-          <div className="response-container">
-
-
-            <div className="toolbar"> <MdDelete />   </div>
+      
+           <div className="left">
+           <div className="toolbar"> <MdDelete />   </div>
 
             {messages.map((message, index) => (
 
@@ -142,33 +135,24 @@ function App(): JSX.Element {
             ))}
 
 
+          
+
+        </div>
 
 
+        <div className="right">
 
+          <div className="user-message">
+
+            {<FormattedMessage text={chatInput} />}
           </div>
 
+          <div className="response-message">
 
-          <div className="response-container"  >
+            {loading ? <Spinner /> : ""}
 
-            <div className="user-message">
-
-              {<FormattedMessage text={chatInput} />}
-            </div>
-
-            <div className="response-message">
-
-              {loading ? <Spinner /> : ""}
-
-              {chatResult != '' ? <FormattedMessage text={chatResult} /> : ""}
-            </div>
-
-
-
-
+            {chatResult != '' ? <FormattedMessage text={chatResult} /> : ""}
           </div>
-
-
-
 
         </div>
 
