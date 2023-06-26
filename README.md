@@ -1,5 +1,18 @@
-# EnterpriseGPT (Docker Setup)
+# EnterpiseGPT
 EnterpriseGPT is an open-source web application built on top of OpenAI's GPT-3.5. It's designed for enterprise IT organizations who wish to utilize the AI model while ensuring their source code isn't submitted for analysis. This is achieved through a custom filtering mechanism within the application.
+
+# Node Setup 
+
+1. Clone the repository
+2. Install client dependencies
+   ```bash
+   $ cd client
+   $ npm install 
+3. 
+
+
+
+# Docker Setup
 
 EnterpriseGPT is dockerized for easy deployment and is built using Vite with React and TypeScript for the client and Node.js Express for the API.
 
