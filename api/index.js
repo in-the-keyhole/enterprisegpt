@@ -4,8 +4,9 @@ import { readFile } from 'fs';
 import { promisify } from 'util';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import 'dotenv/config'
-
+//import 'dotenv/config'
+import * as dotenv from "dotenv";
+dotenv.config({ path: '.env' });
 
 const app = express();
 app.use(express.json());
