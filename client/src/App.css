@@ -43,7 +43,7 @@ h1 {
 
   position: absolute;
   overflow-y: auto;
-  background-color:rgb(94, 93, 93);
+  background-color:rgb(69, 69, 69);
   padding: 20px;
 
   
@@ -59,6 +59,7 @@ h1 {
   font-size: 1.25rem;
   width: 75%;
   overflow: auto;
+  pad: 10px;
   
 };
 
@@ -89,7 +90,7 @@ h1 {
 
 .left div.user-message {
 
-  color: #009688;
+  color: white;
   font-size: 1.40rem;
  }
 

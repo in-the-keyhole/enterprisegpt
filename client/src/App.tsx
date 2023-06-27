@@ -3,7 +3,7 @@ import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, FormattedListMessage } from './components/FormattedMessage';
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdChatBubbleOutline } from "react-icons/md";
 
 interface IMessage {
   text: string;
@@ -110,7 +110,7 @@ function App(): JSX.Element {
       <div className="header">
       
            <div className="left">
-           <div className="toolbar"> <MdDelete />   </div>
+           <div className="toolbar"> </div>
 
             {messages.map((message, index) => (
 
@@ -122,11 +122,7 @@ function App(): JSX.Element {
                   <FormattedListMessage text={message.text} />
                 </div>
 
-                <div key={generateKey("responselist" + index)} className='response-message'>
 
-                  <FormattedListMessage text={message.response} />
-
-                </div>
 
               </div>
 
