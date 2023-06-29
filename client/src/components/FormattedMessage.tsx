@@ -60,7 +60,7 @@ export const FormattedMessage: React.FC<FormattedMessageProps> = ({ text }) => {
 export const FormattedListMessage: React.FC<FormattedMessageProps> = ({ text }) => {
  
 
-  let formattedText = text.length > 40 ? text.substring(0,40) + "..." : text;
+  let formattedText = text.length > 20 ? text.substring(0,20) + "..." : text;
 
 
 return <> <MdChatBubbleOutline/>  {formattedText}</>;

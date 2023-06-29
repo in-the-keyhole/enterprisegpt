@@ -56,11 +56,6 @@ h1 {
   padding: 20px;
   width: 40%;
 
-
-  
-
-
-
 }
 
 
@@ -102,14 +97,16 @@ h1 {
 .left div.user-message {
 
   color: white;
-  font-size: 1.40rem;
+  font-size: var(--listfontsize);
  }
 
  
 .left div.selected-message {
 
-  background-color: green;
-  font-size: --var(listfontsize);
+  background-color: black;
+  font-size: var(--listfontsize);
+  border-radius: 4px;
+
  }
 
   
