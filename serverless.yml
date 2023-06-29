@@ -1,0 +1,51 @@
+# Welcome to serverless. Read the docs
+# https://serverless.com/framework/docs/
+service: enterprise-gpt-zip
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    
+
+functions:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - '${API_PORT}:${API_PORT}'
+    environment:
+      - API_PORT=${API_PORT}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      # Maps the CLIENT_PORT (defined in the root .env file) on the host to port 80 in the Docker container, where the Nginx server listens by default.
+      # This configuration forwards HTTP traffic arriving at CLIENT_PORT on the host to port 80 inside the Docker container.
+      - '${CLIENT_PORT}:80'
+    environment:
+      - CLIENT_PORT=${CLIENT_PORT}
+    depends_on:
+      - api
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./client:/app
+
+# Omit the following lines if you aren't using TS!
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+  - serverless-domain-manager
+
+custom:
+  customDomain:
+    OPENAI_API_KEY: ${env:OPENAI_API_KEY}
+    basePath: ''
+    endpointType: 'regional'
+    apiType: http
+    createRoute53Record: true
