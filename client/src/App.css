@@ -1,3 +1,12 @@
+
+:root {
+  --leftbackgroundcolor: rgb(69, 69, 69);
+  --fontsize: 1.25rem;
+  --listfontsize: 1.25rem;
+ 
+}
+
+
 body {
   height: 100%;
   margin: 0;
@@ -12,7 +21,7 @@ body {
 
   position: relative;
   width: 50%; 
-  font-size: 1.25rem;
+  font-size: var(--fontsize);
   color: #ffffff;
   text-align: left;
   line-height: 1.5;
@@ -30,7 +39,7 @@ h1 {
 .content {
   float: left; 
   width: 50%; 
-  font-size: 1.25rem;
+  font-size: var(--fontsize);
   color: #ffffff;
   text-align: left;
   line-height: 1.5;
@@ -43,8 +52,10 @@ h1 {
 
   position: absolute;
   overflow-y: auto;
-  background-color:rgb(69, 69, 69);
+  background-color:var(--leftbackgroundcolor);
   padding: 20px;
+  width: 40%;
+
 
   
 
@@ -56,7 +67,7 @@ h1 {
 .right {
   position: absolute;
   margin-left: 55%; 
-  font-size: 1.25rem;
+  font-size: val(--fontsize);
   width: 75%;
   overflow: auto;
   pad: 10px;
@@ -93,6 +104,15 @@ h1 {
   color: white;
   font-size: 1.40rem;
  }
+
+ 
+.left div.selected-message {
+
+  background-color: green;
+  font-size: --var(listfontsize);
+ }
+
+  
 
 .right div.user-message {
 
