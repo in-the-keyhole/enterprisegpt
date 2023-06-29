@@ -172,6 +172,7 @@ function App(): JSX.Element {
 
         <div className="right">
 
+         
           <div className="user-message">
 
             {<FormattedMessage text={chatInput} />}
