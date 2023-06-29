@@ -20,7 +20,7 @@ body {
 .header {
 
   position: relative;
-  width: 50%; 
+  width: 100%; 
   font-size: var(--fontsize);
   color: #ffffff;
   text-align: left;
@@ -54,16 +54,16 @@ h1 {
   overflow-y: auto;
   background-color:var(--leftbackgroundcolor);
   padding: 20px;
-  width: 40%;
+  width: 20%;
 
 }
 
 
 .right {
   position: absolute;
-  margin-left: 55%; 
+  margin-left: 25%; 
   font-size: val(--fontsize);
-  width: 75%;
+  width: 80%;
   overflow: auto;
   padding: 10px;
   
@@ -154,10 +154,10 @@ h1 {
 .footer {
   position: fixed;
   bottom: 0;
+  left: 10%;
   width: 100%;
   z-index: 2;
   padding: 1rem;
-  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;

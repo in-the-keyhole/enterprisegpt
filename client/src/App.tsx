@@ -18,19 +18,19 @@ interface IMessage {
 function App(): JSX.Element {
 
 
-  const load =() => {
+  const load = () => {
 
-        let s : string | null  = localStorage.getItem("chats");
+    let s: string | null = localStorage.getItem("chats");
 
-        
-        if (s) {
-         let a : IMessage[] | null  = JSON.parse( s  );
-         if (a) {
-           return a;
-         }
-        }
-       
-        return [];
+
+    if (s) {
+      let a: IMessage[] | null = JSON.parse(s);
+      if (a) {
+        return a;
+      }
+    }
+
+    return [];
   }
 
 
@@ -56,21 +56,21 @@ function App(): JSX.Element {
     const element = divref.current;
 
     let ele = element?.getAttribute("id");
-    console.log("Clicked...."+ele);
+    console.log("Clicked...." + ele);
     if (ele) {
       setSelectedIndex(index);
     }
-  
+
 
   }
 
 
   const save = () => {
-      localStorage.setItem("chats",JSON.stringify(messages) );
+    localStorage.setItem("chats", JSON.stringify(messages));
   }
 
- // load user chats from local storage
- // useEffect( ()=> load());
+  // load user chats from local storage
+  // useEffect( ()=> load());
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     const { value } = event.target;
@@ -105,7 +105,7 @@ function App(): JSX.Element {
 
 
       setMessages((prevMessages) => [...prevMessages, { text: chatPrompt, response: response.data.message, isUser: true }]);
-     
+
       setChatResult(response.data.message);
 
       setSelectedIndex(selectedIndex + 1);
@@ -136,43 +136,42 @@ function App(): JSX.Element {
   }, [messages]); // Only re-run the effect if messages changes
 
 
-  
+
   return (
     <React.Fragment>
       <div className="header">
-      
-           <div className="left">
-           <div className="toolbar"> </div>
 
-            {messages.map((message, index) => (
+        <div className="left">
+          <div className="toolbar"> </div>
 
+          {messages.map((message, index) => (
 
-              <div className="response-select">
-                <div 
-                  ref={divref}
-                  id={""+index}
-                  onClick={() => select(index,message.text, message.response)}
-                  key={index}
-                  className={index == selectedIndex ? 'selected-message' :'user-message'}>
-                   
-                  <FormattedListMessage text={message.text} />
-                </div>
+            <div className="response-select">
+              <div
+                ref={divref}
+                id={"" + index}
+                onClick={() => select(index, message.text, message.response)}
+                key={index}
+                className={index == selectedIndex ? 'selected-message' : 'user-message'}>
 
+                <FormattedListMessage text={message.text} />
               </div>
 
+            </div>
 
 
-            ))}
+
+          ))}
 
 
-          
+
 
         </div>
 
 
         <div className="right">
 
-         
+
           <div className="user-message">
 
             {<FormattedMessage text={chatInput} />}
@@ -186,27 +185,27 @@ function App(): JSX.Element {
           </div>
 
 
-      <div className="footer">
-        <div className="input-container">
-          <textarea
-            id="chatPromptInput"
-            placeholder="Enter a detailed message or question. Source code is restricted."
-            rows={1}
-            value={chatPrompt}
-            onChange={handleInputChange}
-            onKeyDown={async (event) => {
-              // Allows the user to send a message with the Enter key. Shift + Enter moves the cursor to the next line.
-              if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
-                await handleSendMessage();
-              }
-            }}
-          />
-          <button id="sendButton" onClick={handleSendMessage}>
-            Send Message
-          </button>
-        </div>
-      </div>    
+          <div className="footer">
+            <div className="input-container">
+              <textarea
+                id="chatPromptInput"
+                placeholder="Enter a detailed message or question. Source code is restricted."
+                rows={1}
+                value={chatPrompt}
+                onChange={handleInputChange}
+                onKeyDown={async (event) => {
+                  // Allows the user to send a message with the Enter key. Shift + Enter moves the cursor to the next line.
+                  if (event.key === 'Enter' && !event.shiftKey) {
+                    event.preventDefault();
+                    await handleSendMessage();
+                  }
+                }}
+              />
+              <button id="sendButton" onClick={handleSendMessage}>
+                Ask
+              </button>
+            </div>
+          </div>
 
 
 
@@ -216,7 +215,7 @@ function App(): JSX.Element {
 
       </div>
 
-    
+
     </React.Fragment>
   );
 }
