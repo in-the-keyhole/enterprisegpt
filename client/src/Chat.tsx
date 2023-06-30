@@ -3,7 +3,7 @@ import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, FormattedListMessage } from './components/FormattedMessage';
-import { MdDelete, MdChatBubbleOutline } from "react-icons/md";
+import { MdDelete, MdChatBubbleOutline, MdAccountCircle,MdExitToApp } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
 
 
@@ -167,8 +167,12 @@ function Chat(): JSX.Element {
 
         <div className="user-profile">
             
-            {location.state.userid}
-            <a href="/">Logout</a>
+            <div className="profile-message">
+              <MdAccountCircle/> {location.state.userid} 
+            </div>
+            <div className="profile-message">
+              <a href="/"> <MdExitToApp />  </a>
+            </div>
 
             
         </div>        
