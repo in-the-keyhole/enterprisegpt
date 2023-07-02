@@ -31,7 +31,7 @@ body {
   line-height: 1.5;
   margin: 0 0 1rem 2rem;
   padding: 0.5rem;
- 
+  
 
 }
 
@@ -52,6 +52,18 @@ h1 {
     
 }
 
+
+
+.fullleft {
+
+  position: absolute;
+  overflow-y: hidden;
+  
+ 
+
+}
+
+
 .left {
 
   position: absolute;
@@ -59,6 +71,8 @@ h1 {
   background-color:var(--leftbackgroundcolor);
   padding: 20px;
   width: 20%;
+ 
+ 
 
 }
 
