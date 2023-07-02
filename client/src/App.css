@@ -24,7 +24,7 @@ body {
 .header {
 
   position: relative;
-  width: 100%; 
+  width: 90%; 
   font-size: var(--fontsize);
   color: #ffffff;
   text-align: left;
