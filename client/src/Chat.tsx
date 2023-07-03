@@ -5,6 +5,9 @@ import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, FormattedListMessage } from './components/FormattedMessage';
 import { MdDelete, MdChatBubbleOutline, MdAccountCircle, MdExitToApp } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import ReactDom from 'react-dom';
+import remarkGfm from 'remark-gfm';
 
 
 interface IMessage {
@@ -109,7 +112,9 @@ function Chat(): JSX.Element {
 
         try {
 
-            setChatInput(chatPrompt);
+            let userInput = chatPrompt.substring(0,1).toUpperCase()+chatPrompt.substring(1);
+
+            setChatInput(userInput);
             setChatResult("");
 
             // Port 5001 should match the API_PORT in .env file.
@@ -120,7 +125,7 @@ function Chat(): JSX.Element {
 
           if (!exists(chatPrompt)) {
 
-            setMessages((prevMessages) => [...prevMessages, { text: chatPrompt, response: response.data.message, isUser: true }]);
+            setMessages((prevMessages) => [...prevMessages, { text: userInput, response: response.data.message, isUser: true }]);
 
             setSelectedIndex(selectedIndex + 1);
 
@@ -214,7 +219,8 @@ function Chat(): JSX.Element {
 
                         {loading ? <Spinner /> : ""}
 
-                        {chatResult != '' ? <FormattedMessage text={chatResult} /> : ""}
+                        {chatResult != '' ? <ReactMarkdown>{chatResult}</ReactMarkdown> : ""}
+
                     </div>
 
 
