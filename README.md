@@ -1,5 +1,17 @@
 # EnterpiseGPT
-EnterpriseGPT is an open-source web application built on top of OpenAI's GPT-3.5. It's designed for enterprise IT organizations who wish to utilize the AI model while ensuring their source code isn't submitted for analysis. This is achieved through a custom filtering mechanism within the application.
+EnterpriseGPT is an open-source web application that provides an easy to use ChatBot web application that organizations can deploy providing access to there user base via there 
+OpenAI's GPT-3.5 and GTP-4.0 API Key.
+
+<screen shot here>
+
+It's designed for enterprise IT organizations who wish to utilize the AI model while ensuring their source code isn't submitted for analysis. This is achieved through a custom filtering mechanism within the application.  This feature can be enabled or disabled.  
+
+Organizations can deploy the web app as a docker container, in a servless mode, or as a standard node.js based SPA. See instructions below. 
+
+Additionaly, it can be configured to accept user credentials and authenticate these credentials via multipe authentication mechanisms. 
+
+
+
 
 # Node Setup 
 
