@@ -8,6 +8,8 @@ import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import ReactDom from 'react-dom';
 import remarkGfm from 'remark-gfm';
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
+import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 
 interface IMessage {

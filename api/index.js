@@ -4,6 +4,13 @@ import { readFile } from 'fs';
 import { promisify } from 'util';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import passport from 'passport';
+
+import LdapStrategy from 'passport-ldapauth';
+
+import session from 'express-session';
+
+
 //import 'dotenv/config'
 import * as dotenv from "dotenv";
 dotenv.config({ path: '.env' });
@@ -11,8 +18,33 @@ dotenv.config({ path: '.env' });
 const app = express();
 app.use(express.json());
 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
+
+
+let username = "dpitt";
+
+
 // Get the api port from the environment variables
 const apiPort = process.env.API_PORT || 5001;
+const ldapUrl = process.env.LDAP_URL;
+const ldapCredentials = process.env.LDAP_CREDENTIALS;
+
+ 
+let OPTS = {
+  server: {
+    url: ldapUrl,
+    bindDN: 'cn=KeyholeRootUser,cn=Root DNs,cn=config',
+    bindCredentials: ldapCredentials,
+    searchBase: 'ou=users,dc=keyholesoftware,dc=com',
+    searchFilter: '(uid={{username}})'
+  }
+};
+ 
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -20,6 +52,10 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const readFileAsync = promisify(readFile);
+
+
+passport.use(new LdapStrategy(OPTS));
+
 
 // Allow cross-origin requests
 app.use(cors());
@@ -29,6 +65,11 @@ app.use(bodyParser.json());
 
 // Parse incoming requests with URL-encoded payloads
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.post('/login', passport.authenticate('ldapauth', {session: false }), function(req, res) {
+  res.send({status: 'ok'});
+});
+
 
 app.get('/', async (req, res) => {
   try {
@@ -69,6 +110,8 @@ app.post('/createChatCompletion', async (req, res) => {
     res.status(500).json({ error: 'Failed to generate response' });
   }
 });
+
+
 
 app.listen(apiPort, () => 
   console.log(`\n\nNode.js server is now running at http://localhost:${apiPort}\n`)
