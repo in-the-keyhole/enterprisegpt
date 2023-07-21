@@ -10,25 +10,31 @@ Organizations can deploy the web app as a docker container, in a servless mode, 
 
 Additionaly, it can be configured to accept user credentials and authenticate these credentials via multipe authentication mechanisms. 
 
-
-
-
 # Node Setup 
 
 Follow the steps below to run EnterpriseGPT from a Node.js environment
 
 1. Clone the repository
-2. Install and run client
+2. Create a `.env` files in the api directory with the following values
+    
+    API_PORT=5001
+    CLIENT_PORT=3000
+    OPENAI_API_KEY=<open api key> 
+    LDAP_URL=ldap://44.207.109.231:389
+    LDAP_CREDENTIALS=<LDAP Credentials>
+
+
+3. Install and run client
    ```bash
    $ cd client
    $ npm install 
    $ npm run dev
-3. Install api dependencies
+4. Install api dependencies
    ```bash
    $ cd api client
    $ npm install
    $ npm run start
-4. Open [http://localhost:5173](http://localhost:5173/) in a browser
+5. Open [http://localhost:5173](http://localhost:5173/) in a browser
 
 # Docker Setup
 
