@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
-import Spinner from './components/Spinner';
+
 
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -11,26 +11,23 @@ function Login(): JSX.Element {
     const [error, setError] = useState<string>('');
     const navigate = useNavigate();
 
-    
-    const handleSubmit = async (e: React.FormEvent) => {
+
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+
+        // const v = (status: number) => { if (status != 200) { setError("Invalid Login Credentials")} };    } 
 
         const params = new URLSearchParams();
         params.append('username', userid);
         params.append('password', password);
 
         // Port 5001 should match the API_PORT in .env file.
-        const response = await axios.post('http://localhost:5001/login', params);
+        axios.post('http://localhost:5001/login', params).
+            then((s) => { navigate('/chat', { replace: true, state: { userid: userid } }) }).
+            catch((e) => { setError("Invalid Credentials") });
 
-        if (response.status == 200) {
 
-            navigate('/chat', { replace: true, state: { userid: userid } })
-
-        } else {
-
-            setError("Invalid Login Credentials");
-
-        }
 
     };
 
@@ -57,18 +54,16 @@ function Login(): JSX.Element {
                 <form onSubmit={handleSubmit}>
                     <div className="login">
 
-                        <h2> Login Screen  </h2>
+                        <h2> Login </h2>
 
-                        <span> User Id: <input width={50} id="username" name="username" value={userid} onChange={handleUserIdChange} />  </span> <br />
+                        <span> User Id:  <input width={50} id="username" name="username" value={userid} onChange={handleUserIdChange} />  </span> <br />
                         <br />
                         <span> Password: <input type="password" id="password" name="password" width={50} onChange={handlePasswordChange} /> </span> <br />
 
                         <br />
 
-                        <button type="submit">Submit</button>
-                        <Link to='/chat' state={{ userid: userid }} >
-                            <button>Login</button>
-                        </Link>
+                        <button type="submit">Login</button>
+
 
                         <br />
 

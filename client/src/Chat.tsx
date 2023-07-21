@@ -8,8 +8,8 @@ import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import ReactDom from 'react-dom';
 import remarkGfm from 'remark-gfm';
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
-import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 
 interface IMessage {
@@ -114,7 +114,7 @@ function Chat(): JSX.Element {
 
         try {
 
-            let userInput = chatPrompt.substring(0,1).toUpperCase()+chatPrompt.substring(1);
+            let userInput = chatPrompt.substring(0, 1).toUpperCase() + chatPrompt.substring(1);
 
             setChatInput(userInput);
             setChatResult("");
@@ -125,17 +125,17 @@ function Chat(): JSX.Element {
             });
 
 
-          if (!exists(chatPrompt)) {
+            if (!exists(chatPrompt)) {
 
-            setMessages((prevMessages) => [...prevMessages, { text: userInput, response: response.data.message, isUser: true }]);
+                setMessages((prevMessages) => [...prevMessages, { text: userInput, response: response.data.message, isUser: true }]);
 
-            setSelectedIndex(selectedIndex + 1);
+                setSelectedIndex(selectedIndex + 1);
 
-          }
+            }
 
             setChatResult(response.data.message);
 
-          
+
 
 
             // Reset chat prompt
