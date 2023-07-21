@@ -16,13 +16,12 @@ Follow the steps below to run EnterpriseGPT from a Node.js environment
 
 1. Clone the repository
 2. Create a `.env` files in the api directory with the following values
-    
+    ```bash
     API_PORT=5001
     CLIENT_PORT=3000
     OPENAI_API_KEY=<open api key> 
     LDAP_URL=ldap://44.207.109.231:389
     LDAP_CREDENTIALS=<LDAP Credentials>
-
 
 3. Install and run client
    ```bash
