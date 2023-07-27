@@ -30,7 +30,7 @@ Follow the steps below to run EnterpriseGPT from a Node.js environment
    $ npm run dev
 4. Install api dependencies
    ```bash
-   $ cd api client
+   $ cd api
    $ npm install
    $ npm run start
 5. Open [http://localhost:5173](http://localhost:5173/) in a browser
