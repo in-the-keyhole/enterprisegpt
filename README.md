@@ -1,5 +1,5 @@
 # EnterpiseGPT
-EnterpriseGPT is an open-source web application that provides an easy to use ChatBot web application that organizations can deploy providing access to there user base via there 
+EnterpriseGPT is an open-source web application that provides an easy to use ChatBot web application that organizations can deploy providing access to their user base via their 
 OpenAI's GPT-3.5 and GTP-4.0 API Key.
 
 <screen shot here>
