@@ -1,0 +1,39 @@
+service: enterprise-gpt
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  httpApi:
+    cors: true
+  environment:
+    OPENAI_API_KEY: ${env:OPENAI_API_KEY}
+    LDAP_URL: ${env:LDAP_URL}
+    LDAP_CREDENTIALS: ${env:LDAP_CREDENTIALS}
+
+functions:
+  auth:
+    handler: auth.handler
+    events:
+      - httpApi:
+          path: /login
+          method: post
+  chatApi:
+    handler: chat.handler
+    events:
+      - httpApi:
+          path: /createChatCompletion
+          method: post
+plugins:
+  - serverless-offline
+  - serverless-domain-manager
+custom:
+  customDomain:
+    domainName: ${env:DOMAIN_NAME}
+    certificateName: ${env:CERTIFICATE_NAME}
+    basePath: ''
+    endpointType: 'regional'
+    apiType: http
+    createRoute53Record: true
+  serverless-offline:
+    httpPort: 5001
