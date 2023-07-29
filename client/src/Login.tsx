@@ -54,11 +54,11 @@ function Login(): JSX.Element {
                 <form onSubmit={handleSubmit}>
                     <div className="login">
 
-                        <h2> EnterpriseGPT </h2>
+                        <h2> Login </h2>
 
-                        <span><input width={50} id="username" name="username" placeholder="Username" value={userid} onChange={handleUserIdChange} />  </span> <br />
+                        <span> User Id:  <input width={50} id="username" name="username" value={userid} onChange={handleUserIdChange} />  </span> <br />
                         <br />
-                        <span><input type="password" id="password" name="password" placeholder="Password" width={50} onChange={handlePasswordChange} /> </span> <br />
+                        <span> Password: <input type="password" id="password" name="password" width={50} onChange={handlePasswordChange} /> </span> <br />
 
                         <br />
 
@@ -73,9 +73,6 @@ function Login(): JSX.Element {
 
                 </form>
 
-            </div>
-            <div className="badge">
-                <span><a href="https://keyholesoftware.com/" className="plain-link">Built by Keyhole Software</a></span>
             </div>
 
 
