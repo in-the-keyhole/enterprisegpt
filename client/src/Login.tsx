@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 
 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login(): JSX.Element {
 
@@ -24,8 +24,8 @@ function Login(): JSX.Element {
 
         // Port 5001 should match the API_PORT in .env file.
         axios.post('http://localhost:5001/login', params).
-            then(() => { navigate('/chat', { replace: true, state: { userid: userid } }) }).
-            catch(() => { setError("Invalid Credentials") });
+            then((s) => { navigate('/chat', { replace: true, state: { userid: userid } }) }).
+            catch((e) => { setError("Invalid Credentials") });
 
 
 
