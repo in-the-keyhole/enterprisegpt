@@ -28,11 +28,11 @@ Follow the steps below to run EnterpriseGPT from a Node.js environment
    $ cd client
    $ npm install 
    $ npm run dev
-4. Install api dependencies
+4. Install api-serverless dependencies
    ```bash
    $ cd api
    $ npm install
-   $ npm run start
+   $ npm run dev
 5. Open [http://localhost:5173](http://localhost:5173/) in a browser
 
 # Docker Setup
