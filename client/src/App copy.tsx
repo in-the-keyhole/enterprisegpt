@@ -1,9 +1,8 @@
-import React, { useState, ChangeEvent, useEffect } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, FormattedListMessage } from './components/FormattedMessage';
-import { MdDelete, MdChatBubbleOutline } from "react-icons/md";
 
 
 interface IMessage {
@@ -19,11 +18,11 @@ function App(): JSX.Element {
 
   const load = () => {
 
-    let s: string | null = localStorage.getItem("chats");
+    const s: string | null = localStorage.getItem("chats");
 
 
     if (s) {
-      let a: IMessage[] | null = JSON.parse(s);
+      const a: IMessage[] | null = JSON.parse(s);
       if (a) {
         return a;
       }
@@ -43,9 +42,9 @@ function App(): JSX.Element {
   const divref = React.useRef<HTMLDivElement>(null);
 
 
-  const generateKey = (pre: string) => {
-    return `${pre}_${new Date().getTime()}`;
-  }
+  // const generateKey = (pre: string) => {
+  //   return `${pre}_${new Date().getTime()}`;
+  // }
 
   const select = (index: number, user: string, response: string) => {
 
@@ -54,7 +53,7 @@ function App(): JSX.Element {
 
     const element = divref.current;
 
-    let ele = element?.getAttribute("id");
+    const ele = element?.getAttribute("id");
     console.log("Clicked...." + ele);
     if (ele) {
       setSelectedIndex(index);
@@ -130,7 +129,7 @@ function App(): JSX.Element {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
     save();
-  }, [messages]); // Only re-run the effect if messages changes
+  }); // Only re-run the effect if messages changes
 
 
 

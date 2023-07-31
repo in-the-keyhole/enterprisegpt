@@ -1,16 +1,11 @@
-import React, { useState, ChangeEvent, useEffect } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, FormattedListMessage } from './components/FormattedMessage';
-import { MdDelete, MdChatBubbleOutline, MdAccountCircle, MdExitToApp } from "react-icons/md";
+import {  MdAccountCircle, MdExitToApp } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import ReactDom from 'react-dom';
-import remarkGfm from 'remark-gfm';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
-
 
 interface IMessage {
     text: string;
@@ -28,11 +23,11 @@ function Chat(): JSX.Element {
 
     const load = () => {
 
-        let s: string | null = localStorage.getItem("chats");
+        const s: string | null = localStorage.getItem("chats");
 
 
         if (s) {
-            let a: IMessage[] | null = JSON.parse(s);
+            const a: IMessage[] | null = JSON.parse(s);
             if (a) {
                 return a;
             }
@@ -52,9 +47,9 @@ function Chat(): JSX.Element {
     const divref = React.useRef<HTMLDivElement>(null);
 
 
-    const generateKey = (pre: string) => {
-        return `${pre}_${new Date().getTime()}`;
-    }
+    // const generateKey = (pre: string) => {
+    //     return `${pre}_${new Date().getTime()}`;
+    // }
 
 
     const exists = (prompt: string) => {
@@ -78,7 +73,7 @@ function Chat(): JSX.Element {
 
         const element = divref.current;
 
-        let ele = element?.getAttribute("id");
+        const ele = element?.getAttribute("id");
         console.log("Clicked...." + ele);
         if (ele) {
             setSelectedIndex(index);
@@ -114,7 +109,7 @@ function Chat(): JSX.Element {
 
         try {
 
-            let userInput = chatPrompt.substring(0, 1).toUpperCase() + chatPrompt.substring(1);
+            const userInput = chatPrompt.substring(0, 1).toUpperCase() + chatPrompt.substring(1);
 
             setChatInput(userInput);
             setChatResult("");
@@ -160,7 +155,7 @@ function Chat(): JSX.Element {
             messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
         }
         save();
-    }, [messages]); // Only re-run the effect if messages changes
+    }); // Only re-run the effect if messages changes
 
 
 
