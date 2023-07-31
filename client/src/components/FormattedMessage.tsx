@@ -1,5 +1,5 @@
 import React from "react";
-import { MdDelete, MdChatBubbleOutline } from "react-icons/md";
+import {  MdChatBubbleOutline } from "react-icons/md";
 
 interface FormattedMessageProps {
   text: string;
@@ -60,7 +60,7 @@ export const FormattedMessage: React.FC<FormattedMessageProps> = ({ text }) => {
 export const FormattedListMessage: React.FC<FormattedMessageProps> = ({ text }) => {
  
 
-  let formattedText = text.length > 20 ? text.substring(0,20) + "..." : text;
+  const formattedText = text.length > 20 ? text.substring(0,20) + "..." : text;
 
 
 return <> <MdChatBubbleOutline/>  {formattedText}</>;
