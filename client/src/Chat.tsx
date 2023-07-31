@@ -115,7 +115,7 @@ function Chat(): JSX.Element {
             setChatResult("");
 
             // Port 5001 should match the API_PORT in .env file.
-            const response = await axios.post('http://localhost:5001/createChatCompletion', {
+            const response = await axios.post('/api/createChatCompletion', {
                 chatPrompt: chatPrompt,
             });
 

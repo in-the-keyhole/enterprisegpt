@@ -23,12 +23,9 @@ function Login(): JSX.Element {
         params.append('password', password);
 
         // Port 5001 should match the API_PORT in .env file.
-        axios.post('http://localhost:5001/login', params).
+        axios.post('/api/login', params).
             then(() => { navigate('/chat', { replace: true, state: { userid: userid } }) }).
-            catch((error) => { setError("Invalid Credentials") , console.error(error)});
-
-
-
+            catch((error) => { setError("Invalid Credentials"), console.error(error) });
     };
 
 
