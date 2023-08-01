@@ -39,4 +39,39 @@ resource "aws_cloudfront_distribution" "example_distribution" {
     acm_certificate_arn            = var.certificate_arn
     ssl_support_method             = "sni-only"
   }
+
+  origin {
+    origin_id   = "hb9gjrh43c"
+    domain_name = "hb9gjrh43c.execute-api.us-east-1.amazonaws.com"
+
+    custom_origin_config {
+      http_port  = 80
+      https_port = 443
+      origin_protocol_policy = "https-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
+
+    origin_path = "" # The path to the API in the origin
+  }
+  ordered_cache_behavior {
+    path_pattern     = "/api/*" # Match all requests under /api
+    cache_policy_id  = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+    # origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
+    
+    allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "hb9gjrh43c" # Origin ID for the API Gateway endpoint
+
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 0
+    max_ttl                = 0
+
+    # Lambda@Edge function to strip /api path before forwarding to the origin
+    lambda_function_association {
+      event_type   = "origin-request"
+      lambda_arn   = aws_lambda_function.strip_api_path_lambda.qualified_arn
+      include_body = false
+    }
+  }
 }
