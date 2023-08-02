@@ -1,5 +1,6 @@
 name: client-build-deploy
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -24,11 +25,13 @@ jobs:
             cache: 'npm'
             cache-dependency-path: client/package-lock.json
 
-        - name: Step 3 - Build
-          working-directory: ./client
+        - name: Step 3 - Npm install
+          run: npm install
+
+        - name: Step 4 - Build
           run: npm run build
 
-        # - name: Step 4 - Deploy
+        # - name: Step 5 - Deploy
         #   uses: lbertenasco/s3-deploy@v1
         #   with:
         #     folder: dist
