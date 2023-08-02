@@ -32,10 +32,9 @@ jobs:
           run: npm run build
 
         - name: Sync built content in s3
-          run:
+          run: aws s3 sync dist ${{S3_BUCKET}}
             # - aws configure set aws_access_key_id "${{AWS_ACCESS_KEY_ID}}"
             # - aws configure set aws_secret_access_key "${{AWS_SECRET_ACCESS_KEY}}"
-            - aws s3 sync build ${{S3_BUCKET}}
           #- aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*" --no-cli-pager
           # run: aws s3 sync ./dist s3://${{secrets: S3_BUCKET}} --cache-control 'max-age=31536000' --exclude "*.html"
         # working-directory: ./modules/fe-personal-site
