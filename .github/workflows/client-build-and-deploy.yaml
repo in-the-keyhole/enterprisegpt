@@ -21,6 +21,7 @@ jobs:
             cache-dependency-path: client/package-lock.json
 
         - name: Step 3 - Build
+          working-directory: ./client
           run: npm build
 
         # - name: Step 4 - Deploy
