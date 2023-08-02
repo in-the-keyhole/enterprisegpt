@@ -21,7 +21,7 @@ jobs:
         - name: Step 2 - setup Node environment
           uses: actions/setup-node@v3
           with:
-            node-version: 14
+            node-version: 18
             cache: 'npm'
             cache-dependency-path: client/package-lock.json
 
@@ -32,9 +32,14 @@ jobs:
           run: npm run build
 
         - name: Step 5 - Deploy
-          uses: lbertenasco/s3-deploy@v1
+          uses: reggionick/s3-deploy@v3
           with:
             folder: dist
             bucket: ${{ secrets.S3_BUCKET }}
+            bucket-region: us-east-1
             dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-            invalidation: / *
+            invalidation: /
+            delete-removed: true
+            # no-cache: true
+            # private: true
+            # files-to-include: ".*/*,*/*,**"
