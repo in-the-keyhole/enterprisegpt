@@ -22,7 +22,7 @@ jobs:
 
         - name: Step 3 - Build
           working-directory: ./client
-          run: npm build
+          run: npm run build
 
         # - name: Step 4 - Deploy
         #   uses: lbertenasco/s3-deploy@v1
