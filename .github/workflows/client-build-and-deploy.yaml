@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+defaults:
+   run:
+     working-directory: ./client
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -14,7 +17,8 @@ jobs:
         - name: Step 1 - checkout code branch
           uses: actions/checkout@v1
 
-        - uses: actions/setup-node@v3
+        - name: Step 2 - setup Node environment
+          uses: actions/setup-node@v3
           with:
             node-version: 18
             cache: 'npm'
