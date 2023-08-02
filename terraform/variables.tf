@@ -9,6 +9,8 @@ variable "aws_region" {
 
 variable "domain_name" {
   description = "The domain name to be used."
+  type        = string
+  default     = "hb9gjrh43c.execute-api.us-east-1.amazonaws.com"
 }
 
 variable "subdomain_name" {
@@ -34,3 +36,11 @@ variable "tags" {
     Terraform   = "true"
   }
 }
+
+variable "api_gateway_origin_id" {
+  description = "Cloudfront's origin ID"
+  type        = string
+  default     = "hb9gjrh43c"
+}
+
+
