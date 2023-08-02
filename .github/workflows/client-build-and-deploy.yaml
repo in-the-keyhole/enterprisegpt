@@ -1,0 +1,31 @@
+name: client-build-deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    # Requires node environment Action to complete before executing
+    needs: build-node
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+    steps:
+        - name: Step 1 - checkout code branch
+          uses: actions/checkout@v1
+
+        - name: Step 2 - Install dependencies
+          run: npm install
+
+        - name: Step 3 - Build
+          run: npm build
+
+        - name: Step 4 - Deploy
+          uses: lbertenasco/s3-deploy@v1
+          with:
+            folder: dist
+            bucket: ${{ secrets.S3_BUCKET }}
+            dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+            invalidation: / *
