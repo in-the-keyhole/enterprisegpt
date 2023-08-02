@@ -31,10 +31,10 @@ jobs:
         - name: Step 4 - Build
           run: npm run build
 
-        # - name: Step 5 - Deploy
-        #   uses: lbertenasco/s3-deploy@v1
-        #   with:
-        #     folder: dist
-        #     bucket: ${{ secrets.S3_BUCKET }}
-        #     dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-        #     invalidation: / *
+        - name: Step 5 - Deploy
+          uses: lbertenasco/s3-deploy@v1
+          with:
+            folder: dist
+            bucket: ${{ secrets.S3_BUCKET }}
+            dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+            invalidation: / *
