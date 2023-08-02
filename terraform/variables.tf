@@ -37,7 +37,7 @@ variable "tags" {
   }
 }
 
-variable "origin_id" {
+variable "api_gateway_origin_id" {
   description = "Cloudfront's origin ID"
   type        = string
   default     = "hb9gjrh43c"
