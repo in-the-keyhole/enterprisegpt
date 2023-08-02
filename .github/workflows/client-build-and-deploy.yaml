@@ -32,7 +32,7 @@ jobs:
           run: npm run build
 
         - name: Sync built content in s3
-          run: aws s3 sync dist s3://${{ secrets.S3_BUCKET }} --cache-control --delete
+          run: aws s3 sync dist s3://${{ secrets.S3_BUCKET }} --delete
 
         - name: Invalidate the cloudfront distribution
           run:  aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*" --no-cli-pager
