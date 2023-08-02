@@ -41,8 +41,8 @@ resource "aws_cloudfront_distribution" "example_distribution" {
   }
 
   origin {
-    origin_id   = "hb9gjrh43c"
-    domain_name = "hb9gjrh43c.execute-api.us-east-1.amazonaws.com"
+    origin_id   = var.origin_id
+    domain_name = var.domain_name
 
     custom_origin_config {
       http_port  = 80
@@ -60,7 +60,7 @@ resource "aws_cloudfront_distribution" "example_distribution" {
     
     allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "hb9gjrh43c" # Origin ID for the API Gateway endpoint
+    target_origin_id = var.origin_id # Origin ID for the API Gateway endpoint
 
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
