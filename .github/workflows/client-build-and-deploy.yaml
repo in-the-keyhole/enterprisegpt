@@ -18,7 +18,6 @@ jobs:
           with:
             node-version: 18
             cache: 'npm'
-            cache-dependency-path: subdir/package-lock.json
 
         - name: Step 3 - Build
           run: npm build
