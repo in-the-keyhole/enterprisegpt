@@ -16,7 +16,7 @@ jobs:
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
     steps:
         - name: Step 1 - checkout code branch
-          uses: actions/checkout@v1
+          uses: actions/checkout@v3
 
         - name: Step 2 - setup Node environment
           uses: actions/setup-node@v3
