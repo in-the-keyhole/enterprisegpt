@@ -26,6 +26,17 @@ app.use(session({
 }))
 
 
+const ensureAuthenticated = (req, res, next) =>{
+  
+  if (req.user) {
+    return next();
+  }
+
+  res.redirect('/login');
+}
+
+
+
 let username = "dpitt";
 
 
@@ -57,6 +68,20 @@ const readFileAsync = promisify(readFile);
 passport.use(new LdapStrategy(OPTS));
 
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+
+
+
 // Allow cross-origin requests
 app.use(cors());
 
@@ -66,12 +91,12 @@ app.use(bodyParser.json());
 // Parse incoming requests with URL-encoded payloads
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/login', passport.authenticate('ldapauth', {session: false }), function(req, res) {
+app.post('/login', passport.authenticate('ldapauth', {session: true }), function(req, res) {
   res.send({status: 'ok'});
 });
 
 
-app.get('/', async (req, res) => {
+app.get('/', ensureAuthenticated, async (req, res) => {
   try {
     const html = await readFileAsync('./home.html', 'utf-8');
     res.send(html);
@@ -81,7 +106,7 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.post('/createChatCompletion', async (req, res) => {
+app.post('/createChatCompletion', ensureAuthenticated,  async (req, res) => {
   const { chatPrompt } = req.body;
 
   try {
