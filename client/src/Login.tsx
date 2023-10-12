@@ -53,11 +53,15 @@ function Login(): JSX.Element {
 
                         <h2> Login </h2>
 
-                        <span> User Id: <input width={50} id="username" name="username" value={userid} onChange={handleUserIdChange} />  </span> <br />
-                        <br />
-                        <span> Password: <input type="password" id="password" name="password" width={50} onChange={handlePasswordChange} /> </span> <br />
+                        <span>User Id</span>
+                        <p />
+                        <span><input width={50} id="username" name="username" value={userid} onChange={handleUserIdChange} />  </span> <br />
+                        <p />
+                        <span>Password</span>
+                        <p ></p>
+                        <span><input type="password" id="password" name="password" width={50} onChange={handlePasswordChange} /> </span> <br />
 
-                        <br />
+                        <p />
 
                         <button type="submit">Login</button>
 
