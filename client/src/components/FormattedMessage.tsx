@@ -1,9 +1,18 @@
 import React from "react";
-import {  MdChatBubbleOutline } from "react-icons/md";
+import {  MdChatBubbleOutline, MdDelete } from "react-icons/md";
 
 interface FormattedMessageProps {
   text: string;
+  
 }
+
+interface SelectedMessageProps {
+  text: string;
+  remove: any;
+}
+
+
+
 
 export const FormattedMessage: React.FC<FormattedMessageProps> = ({ text }) => {
   const codeBlockPattern = '```[^```]*```';              // Code block (``` ... ```)
@@ -64,4 +73,14 @@ export const FormattedListMessage: React.FC<FormattedMessageProps> = ({ text }) 
 
 
 return <> <MdChatBubbleOutline/>  {formattedText}</>;
+}
+
+
+export const SelectedListMessage: React.FC<SelectedMessageProps> = ({ text, remove }) => {
+ 
+
+  const formattedText = text.length > 20 ? text.substring(0,20) + "..." : text;
+
+
+return <> <MdChatBubbleOutline/>  {formattedText} <MdDelete onClick={ ()=>remove() }  /> </>   ;
 }

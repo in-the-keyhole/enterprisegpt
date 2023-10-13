@@ -2,8 +2,8 @@ import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
-import { FormattedMessage, FormattedListMessage } from './components/FormattedMessage';
-import {  MdAccountCircle, MdExitToApp } from "react-icons/md";
+import { FormattedMessage, FormattedListMessage, SelectedListMessage } from './components/FormattedMessage';
+import { MdAccountCircle, MdExitToApp, MdClearAll } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
@@ -34,6 +34,29 @@ function Chat(): JSX.Element {
         }
 
         return [];
+    }
+
+
+    const clearAll = () => {
+
+
+        if (confirm("Clear All Prompts?") ) {
+          setMessages([]);
+          save();
+        }
+       
+
+    }
+
+
+    const remove = () => {
+
+
+        messages.splice(selectedIndex, 1);
+        save();
+        setSelectedIndex(-1);
+
+
     }
 
 
@@ -164,7 +187,7 @@ function Chat(): JSX.Element {
             <div className="header">
 
                 <div className="left">
-                    <div className="toolbar"> </div>
+                    <div className="toolbar">  <div className="tooltip">  <span className="tooltiptext"> Clear All </span> <MdClearAll onClick={() => clearAll()} /> </div>  </div>
 
                     {messages.map((message, index) => (
 
@@ -176,7 +199,7 @@ function Chat(): JSX.Element {
                                 key={index}
                                 className={index == selectedIndex ? 'selected-message' : 'user-message'}>
 
-                                <FormattedListMessage text={message.text} />
+                                {index == selectedIndex ? <SelectedListMessage text={message.text} remove={() => remove()} ></SelectedListMessage> : <FormattedListMessage text={message.text} ></FormattedListMessage>}
                             </div>
 
                         </div>
