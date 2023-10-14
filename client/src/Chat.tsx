@@ -52,9 +52,11 @@ function Chat(): JSX.Element {
     const remove = () => {
 
 
-        messages.splice(selectedIndex, 1);
-        save();
-        setSelectedIndex(-1);
+        if (confirm("Delete?")) {
+         messages.splice(selectedIndex, 1);
+         save();
+         setSelectedIndex(-1);
+        }
 
 
     }

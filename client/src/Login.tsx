@@ -46,12 +46,15 @@ function Login(): JSX.Element {
     return (
         <React.Fragment>
 
+          <div className="login-container">  
+
+         <div className="login-left">
             <div className="input-container">
 
                 <form onSubmit={handleSubmit}>
                     <div className="login">
 
-                        <h2> Login </h2>
+                        <h2> Enterpise GPT </h2>
 
                         <span>User Id</span>
                         <p />
@@ -76,7 +79,13 @@ function Login(): JSX.Element {
 
             </div>
 
+            </div>
 
+            <div className="login-right">
+              <a target="_blank" href="https://keyholesoftware.com" ><img src="/images/keyhole-logo.png" alt="Keyhole Software" /> </a>
+            </div>
+
+        </div>
         </React.Fragment>
     );
 }

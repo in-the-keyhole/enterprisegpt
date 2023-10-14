@@ -64,6 +64,28 @@ h1 {
 }
 
 
+.login-container {
+  width: 100%;
+  height: 75%;
+  overflow: hidden;
+}
+
+.login-left {
+  width: 10%;
+  float: left;
+  margin: 10%;
+}
+
+.login-right {
+  width: 40%;
+  float: right;
+  margin-top: 20%;
+  margin-right:20%;
+
+
+}
+
+
 .left {
 
   position: absolute;
