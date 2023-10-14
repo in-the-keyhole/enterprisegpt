@@ -48,6 +48,16 @@ function Chat(): JSX.Element {
 
     }
 
+    const copy = () => {
+
+        const divContent = document.getElementById("chat-response");
+        if (divContent != null) {
+         navigator.clipboard.writeText(divContent.innerHTML)
+        }
+
+
+    }
+
 
     const remove = () => {
 
@@ -216,7 +226,7 @@ function Chat(): JSX.Element {
                                 key={index}
                                 className={index == selectedIndex ? 'selected-message' : 'user-message'}>
 
-                                {index == selectedIndex ? <SelectedListMessage text={message.text} remove={() => remove()} ></SelectedListMessage> : <FormattedListMessage text={message.text} ></FormattedListMessage>}
+                                {index == selectedIndex ? <SelectedListMessage text={message.text} remove={() => remove()} copy={()=> copy()} ></SelectedListMessage> : <FormattedListMessage text={message.text} ></FormattedListMessage>}
                             </div>
 
                         </div>
@@ -252,7 +262,7 @@ function Chat(): JSX.Element {
                         {<FormattedMessage text={chatInput} />}
                     </div>
 
-                    <div className="response-message">
+                    <div id="chat-response" className="response-message">
 
                         {loading ? <Spinner /> : ""}
 

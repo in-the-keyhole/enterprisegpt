@@ -1,5 +1,5 @@
 import React from "react";
-import {  MdChatBubbleOutline, MdDelete } from "react-icons/md";
+import {  MdChatBubbleOutline, MdDelete , MdCopyAll } from "react-icons/md";
 
 interface FormattedMessageProps {
   text: string;
@@ -9,6 +9,7 @@ interface FormattedMessageProps {
 interface SelectedMessageProps {
   text: string;
   remove: any;
+  copy: any;
 }
 
 
@@ -76,11 +77,11 @@ return <> <MdChatBubbleOutline/>  {formattedText}</>;
 }
 
 
-export const SelectedListMessage: React.FC<SelectedMessageProps> = ({ text, remove }) => {
+export const SelectedListMessage: React.FC<SelectedMessageProps> = ({ text, remove, copy }) => {
  
 
   const formattedText = text.length > 20 ? text.substring(0,20) + "..." : text;
 
 
-return <> <MdChatBubbleOutline/>  {formattedText} <MdDelete onClick={ ()=>remove() }  /> </>   ;
+return <> <MdChatBubbleOutline/>  {formattedText} <MdDelete onClick={ ()=>remove() } />  <MdCopyAll onClick={ ()=>copy() } />     </>   ;
 }
