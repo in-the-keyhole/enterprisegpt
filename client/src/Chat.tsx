@@ -52,10 +52,18 @@ function Chat(): JSX.Element {
     const remove = () => {
 
 
-        if (confirm("Delete?")) {
+        if (confirm("Delete?")) {    
          messages.splice(selectedIndex, 1);
          save();
-         setSelectedIndex(-1);
+
+         setRefreshKey(refreshKey + 1);
+       
+
+         //select(0, messages[0].text, messages[0].response);
+        // setMessages(messages);
+        // load();
+         //setSelectedIndex(0);
+        
         }
 
 
@@ -71,6 +79,7 @@ function Chat(): JSX.Element {
     const messagesEndRef = React.useRef<HTMLDivElement>(null); // Define a ref for the end of the messages list
     const divref = React.useRef<HTMLDivElement>(null);
     const textAreaEl = React.useRef<HTMLTextAreaElement>(null);
+    const [refreshKey, setRefreshKey] = useState(0);
 
 
     // const generateKey = (pre: string) => {
@@ -97,18 +106,15 @@ function Chat(): JSX.Element {
         setChatInput(user);
         setChatResult(response);
 
-        const element = divref.current;
-
+      //  const element = divref.current;
+        const element = document.getElementById( ""+index);
         const ele = element?.getAttribute("id");
-        console.log("Clicked...." + ele);
         if (ele) {
             setSelectedIndex(index);
             setChatPrompt(messages[index].text);
 
             textAreaEl.current?.focus();
             textAreaEl.current?.select();
-
-
 
 
         }
@@ -197,7 +203,7 @@ function Chat(): JSX.Element {
         <React.Fragment>
             <div className="header">
 
-                <div className="left">
+                <div key="refreshKey" className="left">
                     <div className="toolbar">  <div className="tooltip">  <span className="tooltiptext"> Clear All </span> <MdClearAll onClick={() => clearAll()} /> </div>  </div>
 
                     {messages.map((message, index) => (
