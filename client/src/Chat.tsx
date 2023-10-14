@@ -40,11 +40,11 @@ function Chat(): JSX.Element {
     const clearAll = () => {
 
 
-        if (confirm("Clear All Prompts?") ) {
-          setMessages([]);
-          save();
+        if (confirm("Clear All Prompts?")) {
+            setMessages([]);
+            save();
         }
-       
+
 
     }
 
@@ -68,6 +68,7 @@ function Chat(): JSX.Element {
     const [messages, setMessages] = useState<IMessage[]>(load());
     const messagesEndRef = React.useRef<HTMLDivElement>(null); // Define a ref for the end of the messages list
     const divref = React.useRef<HTMLDivElement>(null);
+    const textAreaEl = React.useRef<HTMLTextAreaElement>(null);
 
 
     // const generateKey = (pre: string) => {
@@ -100,6 +101,14 @@ function Chat(): JSX.Element {
         console.log("Clicked...." + ele);
         if (ele) {
             setSelectedIndex(index);
+            setChatPrompt(messages[index].text);
+
+            textAreaEl.current?.focus();
+            textAreaEl.current?.select();
+  
+             
+          
+
         }
 
 
@@ -250,6 +259,7 @@ function Chat(): JSX.Element {
                                 id="chatPromptInput"
                                 placeholder="Enter a detailed message or question. Source code is restricted."
                                 rows={1}
+                                ref={textAreaEl}
                                 value={chatPrompt}
                                 onChange={handleInputChange}
                                 onKeyDown={async (event) => {
