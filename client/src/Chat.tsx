@@ -105,9 +105,9 @@ function Chat(): JSX.Element {
 
             textAreaEl.current?.focus();
             textAreaEl.current?.select();
-  
-             
-          
+
+
+
 
         }
 
@@ -166,7 +166,7 @@ function Chat(): JSX.Element {
 
 
             // Reset chat prompt
-            setChatPrompt('');
+           // setChatPrompt('');
 
             setLoading(false);
 
