@@ -111,11 +111,14 @@ h1 {
 
 
 .toolbar {
-  height: 24px;
+  height: 25px;
   border-radius: 5px;
   color: white;
   text-align: right; 
   align-items: right;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  
   
 
 }
@@ -134,10 +137,11 @@ h1 {
   text-align: center;
   font-size: x-small;
   padding: 14px 0px;
+
   
  
   /* Position the tooltip text - see examples below! */
-  position: absolute;
+  position: relative;
   z-index: 1;
 }
 
