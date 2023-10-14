@@ -1,11 +1,13 @@
 import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
+import showdown from 'showdown';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, FormattedListMessage, SelectedListMessage } from './components/FormattedMessage';
 import { MdAccountCircle, MdExitToApp, MdClearAll } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import {htmlToText} from 'html-to-text';
 
 interface IMessage {
     text: string;
@@ -48,11 +50,20 @@ function Chat(): JSX.Element {
 
     }
 
+
+    const convertMarkdownToText = ( markdown:string  ) => {
+        const converter = new showdown.Converter();
+        const text = converter.makeHtml(markdown);
+        return text; // This will be the converted plain text
+      }; 
+
     const copy = () => {
 
         const divContent = document.getElementById("chat-response");
         if (divContent != null) {
-         navigator.clipboard.writeText(divContent.innerHTML)
+         
+         const text = htmlToText( divContent.innerHTML );
+         navigator.clipboard.writeText( text );
         }
 
 
