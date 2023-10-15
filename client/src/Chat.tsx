@@ -50,13 +50,6 @@ function Chat(): JSX.Element {
 
     }
 
-
-    const convertMarkdownToText = ( markdown:string  ) => {
-        const converter = new showdown.Converter();
-        const text = converter.makeHtml(markdown);
-        return text; // This will be the converted plain text
-      }; 
-
     const copy = () => {
 
         const divContent = document.getElementById("chat-response");
