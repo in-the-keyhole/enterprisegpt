@@ -3,7 +3,7 @@ import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, FormattedListMessage, SelectedListMessage } from './components/FormattedMessage';
-import { MdAccountCircle, MdExitToApp, MdClearAll, MdCopyAll } from "react-icons/md";
+import { MdAccountCircle, MdExitToApp, MdClearAll, MdCopyAll,  MdAdd } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import {htmlToText} from 'html-to-text';
@@ -57,6 +57,18 @@ function Chat(): JSX.Element {
          const text = htmlToText( divContent.innerHTML );
          navigator.clipboard.writeText( text );
         }
+
+
+    }
+
+    const newPrompt =() => {
+
+        setChatPrompt("");
+        setChatResult("");
+        setChatInput("");
+        setSelectedIndex(-1);
+        const element = document.getElementById( "chatPromptInput" );
+        element?.focus();
 
 
     }
@@ -295,6 +307,9 @@ function Chat(): JSX.Element {
                             <button id="sendButton" onClick={handleSendMessage}>
                                 Ask
                             </button>
+                            <div className="tooltip">  
+                                <span className="tooltiptext"> New </span> <MdAdd onClick={() => newPrompt()} /> 
+                            </div>
                         </div>
                     </div>
 
