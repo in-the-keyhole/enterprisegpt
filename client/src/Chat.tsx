@@ -4,7 +4,7 @@ import showdown from 'showdown';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, FormattedListMessage, SelectedListMessage } from './components/FormattedMessage';
-import { MdAccountCircle, MdExitToApp, MdClearAll } from "react-icons/md";
+import { MdAccountCircle, MdExitToApp, MdClearAll, MdCopyAll } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import {htmlToText} from 'html-to-text';
@@ -274,6 +274,7 @@ function Chat(): JSX.Element {
                     </div>
 
                     <div id="chat-response" className="response-message">
+                        <div className="toolbar"> <div className="tooltip">  <span className="tooltiptext"> Copy </span> <MdCopyAll onClick={() => copy()} /> </div>  </div>
 
                         {loading ? <Spinner /> : ""}
 
