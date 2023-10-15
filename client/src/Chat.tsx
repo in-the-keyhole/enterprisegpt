@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
-import showdown from 'showdown';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, FormattedListMessage, SelectedListMessage } from './components/FormattedMessage';
