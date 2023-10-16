@@ -1,6 +1,6 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, {} from 'react';
 import { MdChatBubbleOutline } from 'react-icons/md';
-import props from 'prop-types';
+
 
 interface Text {
 

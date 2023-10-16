@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
-import { FormattedMessage, FormattedListMessage, SelectedListMessage } from './components/FormattedMessage';
+import { FormattedMessage, SelectedListMessage } from './components/FormattedMessage';
 import { MdAccountCircle, MdExitToApp, MdClearAll, MdCopyAll,  MdAdd } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
