@@ -10,8 +10,11 @@ import {htmlToText} from 'html-to-text';
 import ListComponent from './components/ListComponent';
 
 interface IMessage {
+    id: string;
     text: string;
     response: string;
+    user: string;
+    datetime: Date;
     isUser: boolean;
     isLoading?: boolean;
     isWarning?: boolean; // This property will be true when the message includes source code and is a warning.
@@ -188,7 +191,10 @@ function Chat(): JSX.Element {
 
             if (!exists(chatPrompt)) {
 
-                setMessages((prevMessages) => [...prevMessages, { text: userInput, response: response.data.message, isUser: true }]);
+                const id = crypto.randomUUID();
+                const d = new Date();
+
+                setMessages((prevMessages) => [...prevMessages, { id: id, text: userInput, response: response.data.message, user: location.state.userid, datetime: d, isUser: true }]);
 
                 setSelectedIndex(selectedIndex + 1);
 
