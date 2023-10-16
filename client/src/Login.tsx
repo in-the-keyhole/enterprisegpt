@@ -82,7 +82,7 @@ function Login(): JSX.Element {
             </div>
 
             <div className="login-right">
-              <a target="_blank" href="https://keyholesoftware.com" ><img src="/images/keyhole-logo.png" alt="Keyhole Software" /> </a>
+              <a target="_blank" href="https://keyholesoftware.com" ><img src="images/keyhole-logo.png" alt="Keyhole Software" /> </a>
             </div>
 
         </div>
