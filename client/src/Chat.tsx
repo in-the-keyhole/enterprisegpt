@@ -7,6 +7,7 @@ import { MdAccountCircle, MdExitToApp, MdClearAll, MdCopyAll,  MdAdd } from "rea
 import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import {htmlToText} from 'html-to-text';
+import ListComponent from './components/ListComponent';
 
 interface IMessage {
     text: string;
@@ -241,7 +242,7 @@ function Chat(): JSX.Element {
                                 key={index}
                                 className={index == selectedIndex ? 'selected-message' : 'user-message'}>
 
-                                {index == selectedIndex ? <SelectedListMessage text={message.text} remove={() => remove()} copy={()=> copy()} ></SelectedListMessage> : <FormattedListMessage text={message.text} ></FormattedListMessage>}
+                                {index == selectedIndex ? <SelectedListMessage text={message.text} remove={() => remove()} copy={()=> copy()} ></SelectedListMessage> : <ListComponent text={message.text} ></ListComponent>}
                             </div>
 
                         </div>
