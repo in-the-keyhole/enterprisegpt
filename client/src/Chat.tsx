@@ -3,16 +3,15 @@ import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, SelectedListMessage } from './components/FormattedMessage';
-import { MdAccountCircle, MdExitToApp, MdClearAll, MdCopyAll,  MdAdd } from "react-icons/md";
+import { MdAccountCircle, MdExitToApp, MdClearAll, MdCopyAll, MdAdd } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import {htmlToText} from 'html-to-text';
+import { htmlToText } from 'html-to-text';
 import ListComponent from './components/ListComponent';
 
-interface IMessage {
+interface IChat {
     id: string;
-    text: string;
-    response: string;
+    messages: IMessage[];
     user: string;
     datetime: Date;
     isUser: boolean;
@@ -20,6 +19,14 @@ interface IMessage {
     isWarning?: boolean; // This property will be true when the message includes source code and is a warning.
 }
 
+interface IMessage {
+    text: string;
+    response: string;
+
+}
+
+
+let currentChat: IChat;
 
 function Chat(): JSX.Element {
 
@@ -32,7 +39,7 @@ function Chat(): JSX.Element {
 
 
         if (s) {
-            const a: IMessage[] | null = JSON.parse(s);
+            const a: IChat[] | null = JSON.parse(s);
             if (a) {
                 return a;
             }
@@ -46,7 +53,7 @@ function Chat(): JSX.Element {
 
 
         if (confirm("Clear All Prompts?")) {
-            setMessages([]);
+            setChats([]);
             save();
         }
 
@@ -57,22 +64,28 @@ function Chat(): JSX.Element {
 
         const divContent = document.getElementById("chat-response");
         if (divContent != null) {
-         
-         const text = htmlToText( divContent.innerHTML );
-         navigator.clipboard.writeText( text );
+
+            const text = htmlToText(divContent.innerHTML);
+            navigator.clipboard.writeText(text);
         }
 
 
     }
 
-    const newPrompt =() => {
+    const newChat = () => {
 
         setChatPrompt("");
         setChatResult("");
         setChatInput("");
         setSelectedIndex(-1);
-        const element = document.getElementById( "chatPromptInput" );
+        const element = document.getElementById("chatPromptInput");
         element?.focus();
+
+        const id = crypto.randomUUID();
+        const d = new Date();
+
+        currentChat = { id: id, datetime: d, messages: [], user: location.state.userid, isUser: true };
+        chats.push(currentChat);
 
 
     }
@@ -81,18 +94,18 @@ function Chat(): JSX.Element {
     const remove = () => {
 
 
-        if (confirm("Delete?")) {    
-         messages.splice(selectedIndex, 1);
-         save();
+        if (confirm("Delete?")) {
+            chats.splice(selectedIndex, 1);
+            save();
 
-         setRefreshKey(refreshKey + 1);
-       
+            setRefreshKey(refreshKey + 1);
 
-         //select(0, messages[0].text, messages[0].response);
-        // setMessages(messages);
-        // load();
-         //setSelectedIndex(0);
-        
+
+            //select(0, messages[0].text, messages[0].response);
+            // setMessages(messages);
+            // load();
+            //setSelectedIndex(0);
+
         }
 
 
@@ -104,7 +117,7 @@ function Chat(): JSX.Element {
     const [chatResult, setChatResult] = useState<string>('');
     const [chatInput, setChatInput] = useState<string>('');
     const [chatPrompt, setChatPrompt] = useState<string>('');
-    const [messages, setMessages] = useState<IMessage[]>(load());
+    const [chats, setChats] = useState<IChat[]>(load());
     const messagesEndRef = React.useRef<HTMLDivElement>(null); // Define a ref for the end of the messages list
     const divref = React.useRef<HTMLDivElement>(null);
     const textAreaEl = React.useRef<HTMLTextAreaElement>(null);
@@ -116,11 +129,23 @@ function Chat(): JSX.Element {
     // }
 
 
+    const displayMessages = () => {
+
+        if (currentChat) {
+
+            return currentChat.messages.length > 0 ? currentChat.messages[0].text : "";
+        }
+
+
+        return "";
+
+    }
+
     const exists = (prompt: string) => {
 
-        for (let i = 0; i < messages.length; i++) {
+        for (let i = 0; i < chats.length; i++) {
 
-            if (messages[i].text.toUpperCase() === prompt.toUpperCase()) {
+            if (chats[i].messages[0].text.toUpperCase() === prompt.toUpperCase()) {
                 return true;
             }
 
@@ -129,18 +154,24 @@ function Chat(): JSX.Element {
         return false;
     }
 
+    const lastMessage = (chatIndex: number) => {
+
+        const n = chats[chatIndex].messages.length;
+        return chats[chatIndex].messages[n - 1];
+
+    }
 
     const select = (index: number, user: string, response: string) => {
 
         setChatInput(user);
         setChatResult(response);
 
-      //  const element = divref.current;
-        const element = document.getElementById( ""+index);
+        //  const element = divref.current;
+        const element = document.getElementById("" + index);
         const ele = element?.getAttribute("id");
         if (ele) {
             setSelectedIndex(index);
-            setChatPrompt(messages[index].text);
+            setChatPrompt(lastMessage(index).text);
 
             textAreaEl.current?.focus();
             textAreaEl.current?.select();
@@ -153,7 +184,7 @@ function Chat(): JSX.Element {
 
 
     const save = () => {
-        localStorage.setItem("chats", JSON.stringify(messages));
+        localStorage.setItem("chats", JSON.stringify(chats));
     }
 
 
@@ -189,16 +220,27 @@ function Chat(): JSX.Element {
             });
 
 
-            if (!exists(chatPrompt)) {
+            //   if (!exists(chatPrompt)) {
 
-                const id = crypto.randomUUID();
-                const d = new Date();
+            const id = crypto.randomUUID();
+            const d = new Date();
 
-                setMessages((prevMessages) => [...prevMessages, { id: id, text: userInput, response: response.data.message, user: location.state.userid, datetime: d, isUser: true }]);
 
-                setSelectedIndex(selectedIndex + 1);
+            if (currentChat == null) {
+
+                currentChat = { id: id, datetime: d, messages: [], user: location.state.userid, isUser: true };
+                chats.push(currentChat);
+
 
             }
+
+
+            currentChat.messages.push({ text: userInput, response: response.data.message });
+            setSelectedIndex(selectedIndex + 1);
+
+
+
+            // }
 
             setChatResult(response.data.message);
 
@@ -206,7 +248,7 @@ function Chat(): JSX.Element {
 
 
             // Reset chat prompt
-           // setChatPrompt('');
+            // setChatPrompt('');
 
             setLoading(false);
 
@@ -238,17 +280,17 @@ function Chat(): JSX.Element {
                 <div key="refreshKey" className="left">
                     <div className="toolbar">  <div className="tooltip">  <span className="tooltiptext"> Clear All </span> <MdClearAll onClick={() => clearAll()} /> </div>  </div>
 
-                    {messages.map((message, index) => (
+                    {chats.map((message, index) => (
 
                         <div className="response-select">
                             <div
                                 ref={divref}
                                 id={"" + index}
-                                onClick={() => select(index, message.text, message.response)}
+                                onClick={() => select(index, currentChat.messages[0].text, currentChat.messages[0].response)}
                                 key={index}
                                 className={index == selectedIndex ? 'selected-message' : 'user-message'}>
 
-                                {index == selectedIndex ? <SelectedListMessage text={message.text} remove={() => remove()} copy={()=> copy()} ></SelectedListMessage> : <ListComponent text={message.text} ></ListComponent>}
+                                {index == selectedIndex ? <SelectedListMessage text={displayMessages()} remove={() => remove()} copy={() => copy()} ></SelectedListMessage> : <ListComponent text={displayMessages()} ></ListComponent>}
                             </div>
 
                         </div>
@@ -314,8 +356,8 @@ function Chat(): JSX.Element {
                             <button id="sendButton" onClick={handleSendMessage}>
                                 Ask
                             </button>
-                            <div className="tooltip">  
-                                <span className="tooltiptext"> New </span> <MdAdd onClick={() => newPrompt()} /> 
+                            <div className="tooltip">
+                                <span className="tooltiptext"> New </span> <MdAdd onClick={() => newChat()} />
                             </div>
                         </div>
                     </div>
