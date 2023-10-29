@@ -134,12 +134,7 @@ function Chat(): JSX.Element {
         const element = document.getElementById("chatPromptInput");
         element?.focus();
 
-        const id = crypto.randomUUID();
-        const d = new Date();
         currentChat = null;
-
-    //    currentChat = { id: id, datetime: d, messages: [], user: location.state.userid, isUser: true };
-    //    chats.push(currentChat);
 
 
     }
@@ -154,11 +149,6 @@ function Chat(): JSX.Element {
 
             setRefreshKey(refreshKey + 1);
 
-
-            //select(0, messages[0].text, messages[0].response);
-            // setMessages(messages);
-            // load();
-            //setSelectedIndex(0);
 
         }
 
@@ -279,11 +269,7 @@ function Chat(): JSX.Element {
 
 
             currentChat.messages.push({ text: userInput, response: response.data.message });
-         //   setSelectedIndex(selectedIndex + 1);
-
-
-
-            // }
+      
 
             setChatResult(response.data.message);
 
