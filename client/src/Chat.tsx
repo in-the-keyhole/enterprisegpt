@@ -3,7 +3,7 @@ import axios from 'axios';
 import Spinner from './components/Spinner';
 import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, SelectedListMessage } from './components/FormattedMessage';
-import { MdAccountCircle, MdExitToApp, MdClearAll, MdCopyAll, MdAdd, MdArrowDownward, MdArrowUpward } from "react-icons/md";
+import { MdAccountCircle, MdExitToApp, MdClearAll, MdCopyAll, MdAdd } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { htmlToText } from 'html-to-text';
@@ -29,7 +29,6 @@ interface IMessage {
 
 
 let currentChat: IChat;
-let currentIndex =  0;
 
 function Chat(): JSX.Element {
 
@@ -103,7 +102,19 @@ function Chat(): JSX.Element {
         
     }
 
+    const prompts = () => {
 
+        const results: string[] = [];
+
+        if (currentChat != null) {
+
+          currentChat.messages.forEach( (m) => results.push(m.text));  
+        
+        }
+
+        return results;
+
+    }
     const upClicked = () => {
 
         currentChat.currentIndex = currentChat.currentIndex - 1;
@@ -167,26 +178,6 @@ function Chat(): JSX.Element {
     const [refreshKey, setRefreshKey] = useState(0);
 
 
-    // const generateKey = (pre: string) => {
-    //     return `${pre}_${new Date().getTime()}`;
-    // }
-
-
-
-
-    const exists = (prompt: string) => {
-
-        for (let i = 0; i < chats.length; i++) {
-
-            if (chats[i].messages[0].text.toUpperCase() === prompt.toUpperCase()) {
-                return true;
-            }
-
-        }
-
-        return false;
-    }
-
     const lastMessage = (chatIndex: number) => {
 
         const n = chats[chatIndex].messages.length;
@@ -199,7 +190,6 @@ function Chat(): JSX.Element {
         setChatInput(user);
         setChatResult(response);
 
-        //  const element = divref.current;
         const element = document.getElementById("" + index);
         const ele = element?.getAttribute("id");
         if (ele) {
@@ -209,8 +199,7 @@ function Chat(): JSX.Element {
             textAreaEl.current?.focus();
             textAreaEl.current?.select();
             currentChat = chats[index];
-            currentIndex = currentChat.messages.length - 1;
-
+       
             setChatInput(currentChat.messages[currentChat.currentIndex].text);
             setChatResult(currentChat.messages[currentChat.currentIndex].response);
 
@@ -238,6 +227,10 @@ function Chat(): JSX.Element {
 
         setLoading(true);
 
+        if (currentChat == null) {
+            setSelectedIndex(chats.length);
+        }
+
         // Check if the message includes source code
         if (isCodeDetected(chatPrompt)) {
 
@@ -253,23 +246,30 @@ function Chat(): JSX.Element {
             setChatInput(userInput);
             setChatResult("");
 
+            const prompts = [];
+
+            if (currentChat != null) {
+             currentChat.messages.forEach( (m) => { prompts.push( m.text ) } );
+            }
+
+            prompts.push(chatPrompt);
+
+
             // Port 5001 should match the API_PORT in .env file.
             const response = await axios.post('/api/createChatCompletion', {
                 chatPrompt: chatPrompt,
+                prompts: prompts
             });
 
 
-            //   if (!exists(chatPrompt)) {
-
             const id = crypto.randomUUID();
             const d = new Date();
-
 
             if (currentChat == null) {
 
                 currentChat = { id: id, datetime: d, messages: [], user: location.state.userid, currentIndex: 0, isUser: true };
                 chats.push(currentChat);
-
+              
 
             } else {
 
@@ -291,6 +291,8 @@ function Chat(): JSX.Element {
             // setChatPrompt('');
 
             setLoading(false);
+
+
 
             save();
 
@@ -366,7 +368,7 @@ function Chat(): JSX.Element {
 
                        <div className="left-toolbar">{<FormattedMessage text={chatInput} />} </div>
 
-                        <div className="right-toolbar"> <ChatThread upVisible={isUpVisible()} downVisible={isDownVisible()} up={upClicked} down={downClicked} />  </div>
+                        <div className="right-toolbar"> <ChatThread upVisible={isUpVisible()} downVisible={isDownVisible()} up={upClicked} down={downClicked} prompts={prompts()}   />  </div>
 
                     </div>
 

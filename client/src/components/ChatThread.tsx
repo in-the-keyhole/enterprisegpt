@@ -1,5 +1,5 @@
 import React from "react";
-import {  MdArrowDownward, MdArrowUpward  } from "react-icons/md";
+import {  MdArrowDownward, MdArrowUpward, MdList } from "react-icons/md";
 
 
 interface ThreadProps {
@@ -7,17 +7,18 @@ interface ThreadProps {
   downVisible: boolean;
   up: any;
   down: any;
+  prompts: string[]
 }
 
 
 
 export const ChatThread: React.FC<ThreadProps> = ({ upVisible, downVisible,up, down }) => {
  
-    const u = upVisible ?  <MdArrowUpward onClick={ ()=>up() } /> : <span>{' '}</span>; 
-    const d = downVisible ?  <MdArrowDownward onClick={ ()=>down() }  /> : <span>{' ' }</span>;
+    const u = upVisible ?  <MdArrowUpward onClick={ ()=>up() } /> : <span>{"  "}</span>; 
+    const d = downVisible ?  <MdArrowDownward onClick={ ()=>down() }  /> : <span>{" "}</span>;
 
 
-return <>  {d} {u}  </> ;
+return <> <MdList /> {d} {u}  </> ;
 }
 
 

@@ -107,21 +107,21 @@ app.get('/', ensureAuthenticated, async (req, res) => {
 });
 
 app.post('/createChatCompletion', ensureAuthenticated,  async (req, res) => {
-  const { chatPrompt } = req.body;
+  const { chatPrompt, prompts } = req.body;
+
+
+  const messages = [{ role: 'system',  content: `You: You can format code using triple backticks (\`\`\`).\n\nAssistant: When providing the code response, please include an empty line before the code block and an empty line after it to separate it from the message.\n\nAssistant: To format a bulleted or numbered list, start each item on a new line. For a bulleted list, use a dash (-) or an asterisk (*). For a numbered list, use a number followed by a period (e.g., 1., 2.).` }];
+
+  for (let i = 0; i < prompts.length; i++ ) {
+
+      messages.push( { role: 'user', content: prompts[i] } );
+
+  }
 
   try {
     const completionResponse = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
-      messages: [
-        {
-          role: 'system',
-          content: `You: You can format code using triple backticks (\`\`\`).\n\nAssistant: When providing the code response, please include an empty line before the code block and an empty line after it to separate it from the message.\n\nAssistant: To format a bulleted or numbered list, start each item on a new line. For a bulleted list, use a dash (-) or an asterisk (*). For a numbered list, use a number followed by a period (e.g., 1., 2.).`
-        },
-        {
-          role: 'user',
-          content: chatPrompt,
-        },
-      ],
+      messages: messages,
       temperature: 1, // Optional - Defaults to 1,
       top_p: 1, // Optional - Defaults to 1,
       n: 1, // Optional - Defaults to 1,
