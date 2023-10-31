@@ -37,12 +37,23 @@ function Chat(): JSX.Element {
 
     const load = () => {
 
+
         const s: string | null = localStorage.getItem("chats");
 
 
         if (s) {
             const a: IChat[] | null = JSON.parse(s);
             if (a) {
+
+                if(a.length > 0 && !a[0].currentIndex) {
+
+                    // DPITT older structure in local storage, delete it and return empty array
+                    localStorage.removeItem("chats");
+                    return [];
+
+                }
+
+
                 return a;
             }
         }
@@ -104,15 +115,24 @@ function Chat(): JSX.Element {
 
     const prompts = () => {
 
-        const results: string[] = [];
+        let s : string = '';
 
         if (currentChat != null) {
 
-          currentChat.messages.forEach( (m) => results.push(m.text));  
+          currentChat.messages.forEach( (m) => {
+            
+            s = s +" ## " + m.text +'\n \n \n';
+            s = s + m.response +'\n';
+            
+         });  
         
+         setChatInput("Chat prompts and results are listed below")
+         setChatResult(s);
+         
+
         }
 
-        return results;
+        return;
 
     }
     const upClicked = () => {
@@ -354,7 +374,7 @@ function Chat(): JSX.Element {
 
                        <div className="left-toolbar">{<FormattedMessage text={chatInput} />} </div>
 
-                        <div className="right-toolbar"> <ChatThread upVisible={isUpVisible()} downVisible={isDownVisible()} up={upClicked} down={downClicked} prompts={prompts()}   />  </div>
+                        <div className="right-toolbar"> <ChatThread upVisible={isUpVisible()} downVisible={isDownVisible()} up={upClicked} down={downClicked} prompts={prompts}   />  </div>
 
                     </div>
 

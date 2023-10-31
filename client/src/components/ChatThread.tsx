@@ -7,18 +7,18 @@ interface ThreadProps {
   downVisible: boolean;
   up: any;
   down: any;
-  prompts: string[]
+  prompts: any;
 }
 
 
 
-export const ChatThread: React.FC<ThreadProps> = ({ upVisible, downVisible,up, down }) => {
+export const ChatThread: React.FC<ThreadProps> = ({ upVisible, downVisible,up, down, prompts }) => {
  
     const u = upVisible ?  <MdArrowUpward onClick={ ()=>up() } /> : <span>{"  "}</span>; 
     const d = downVisible ?  <MdArrowDownward onClick={ ()=>down() }  /> : <span>{" "}</span>;
 
 
-return <> <MdList /> {d} {u}  </> ;
+return <> <MdList onClick = { ()=>prompts() }  /> {d} {u}  </> ;
 }
 
 
