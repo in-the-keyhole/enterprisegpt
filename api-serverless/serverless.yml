@@ -24,6 +24,7 @@ functions:
       - httpApi:
           path: /createChatCompletion
           method: post
+    timeout: 30
 plugins:
   - serverless-offline
   - serverless-domain-manager
