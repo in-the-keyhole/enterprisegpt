@@ -115,7 +115,7 @@ function Chat(): JSX.Element {
 
     const prompts = () => {
 
-        let s : string = '';
+        let s = '';
 
         if (currentChat != null) {
 
