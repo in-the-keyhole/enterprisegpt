@@ -132,7 +132,10 @@ app.post('/createChatCompletion', ensureAuthenticated,  async (req, res) => {
     res.json({ message });
   } catch (error) {
     console.error('Failed to generate response:', error);
-    res.status(500).json({ error: 'Failed to generate response' });
+    // Check if the error object has a response property with a status code
+    const statusCode = error.response?.status || 500;
+
+    res.status(statusCode).json({ error: 'Failed to generate response' });
   }
 });
 
