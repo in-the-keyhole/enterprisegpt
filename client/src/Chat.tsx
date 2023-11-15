@@ -1,7 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
 import axios from 'axios';
 import Spinner from './components/Spinner';
-import { isCodeDetected } from './helpers/codeDetection';
 import { FormattedMessage, SelectedListMessage } from './components/FormattedMessage';
 import { MdAccountCircle, MdExitToApp, MdClearAll, MdCopyAll, MdAdd } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
@@ -241,14 +240,6 @@ function Chat(): JSX.Element {
             setSelectedIndex(chats.length);
         }
 
-        // Check if the message includes source code
-        if (isCodeDetected(chatPrompt)) {
-
-            setChatResult('Source code is restricted.');
-            setChatPrompt(''); // Reset the chat prompt
-            return;
-        }
-
         try {
 
             const userInput = chatPrompt.substring(0, 1).toUpperCase() + chatPrompt.substring(1);
@@ -266,11 +257,10 @@ function Chat(): JSX.Element {
 
 
             // Port 5001 should match the API_PORT in .env file.
-            const response = await axios.post('/api/createChatCompletion', {
+            const response = await axios.post('http://localhost:5001/createChatCompletion ', {
                 chatPrompt: chatPrompt,
                 prompts: prompts
             });
-
 
             const id = crypto.randomUUID();
             const d = new Date();
