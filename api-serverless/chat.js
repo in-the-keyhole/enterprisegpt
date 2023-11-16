@@ -13,7 +13,6 @@ export const handler = async (event) => {
   const isUserCode = isCodeDetected(chatPrompt);
 
   if (isUserCode) {
-    console.log("Alert: Code is not allowed to be submitted as input."); 
     // If user input is detected as code, handle it accordingly
     return {
       statusCode: 400,
