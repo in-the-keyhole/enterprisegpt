@@ -250,14 +250,14 @@ function Chat(): JSX.Element {
             const prompts = [];
 
             if (currentChat != null) {
-             currentChat.messages.forEach( (m) => { prompts.push( m.text ) } );
+                currentChat.messages.forEach((m) => { prompts.push(m.text) });
             }
 
             prompts.push(chatPrompt);
 
 
             // Port 5001 should match the API_PORT in .env file.
-            const response = await axios.post('http://localhost:5001/createChatCompletion ', {
+            const response = await axios.post('/api/createChatCompletion ', {
                 chatPrompt: chatPrompt,
                 prompts: prompts
             });
@@ -295,8 +295,16 @@ function Chat(): JSX.Element {
         } catch (error) {
             console.error('Failed to generate response:', error);
             setLoading(false);
-            setChatResult("Error: " + error);
-
+            if (
+                (error as { response?: { status?: number } }).response?.status === 400 ||
+                (error as { message?: string }).message?.includes("Code is not allowed")
+            ) {
+                // Handle the case when code is not allowed
+                setChatResult("Code is not allowed to be submitted as input.");
+            } else {
+                // Handle other errors without exposing the specific error message
+                setChatResult("An error occurred while processing the request.");
+            }
         }
     };
 
