@@ -1,13 +1,37 @@
 import { Configuration, OpenAIApi } from 'openai';
+import { isCodeDetected } from './code-detection.js';
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
+const isCodeDetectionEnabled = process.env.CODE_DETECTION_ENABLED;
+
 export const handler = async (event) => {
 
   const { chatPrompt } = JSON.parse(event.isBase64Encoded ? Buffer.from(event.body, 'base64').toString('utf-8') : event.body);
+
+  if (isCodeDetectionEnabled) {
+    const isUserCode = isCodeDetected(chatPrompt);
+  
+    if (isUserCode) {
+      // If user input is detected as code, handle it accordingly
+      return {
+        statusCode: 400,
+        body: JSON.stringify(
+          {
+            message: "Code is not allowed to be submitted as input."
+          },
+          null,
+          2
+        ),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+    }
+  }
 
   try {
     const completionResponse = await openai.createChatCompletion({

@@ -10,6 +10,7 @@ provider:
     OPENAI_API_KEY: ${env:OPENAI_API_KEY}
     LDAP_URL: ${env:LDAP_URL}
     LDAP_CREDENTIALS: ${env:LDAP_CREDENTIALS}
+    CODE_DETECTION_ENABLED: ${env:CODE_DETECTION_ENABLED}
 
 functions:
   auth:
