@@ -38,6 +38,9 @@ Make sure you have the following installed on your machine before proceeding:
 
 Your application should now be running on the ports specified in the `.env` file. By default, the client is at `http://localhost:3000` and the API at `http://localhost:5001`.
 
+## Enabling Or Disabling Source Code Detection
+In order to prevent source code to be submitted for analysis, the environment variable `CODE_DETECTION_ENABLED` can be set to `true` or `false`
+
 ## Node.js Version
 This project uses Node.js version 14. 
 
