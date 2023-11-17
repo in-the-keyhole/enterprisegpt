@@ -19,7 +19,7 @@ Make sure you have the following installed on your machine before proceeding:
     cd enterprisegpt
     ```
 1. Ensure Docker Desktop is running. For Linux, start Docker service with `sudo systemctl start docker` or `sudo service docker start`.
-1. Set up Environment Variables: Copy `.env.template` in the `.devcontainer` directory to a new file named `.env` in the same folder. Update the `.env` file with your values, including the `OPENAI_API_KEY` and LDAP credentials. Then Rebuild the Dev Container. 
+1. Set up Environment Variables: Copy `.env.template` in the `.devcontainer` directory to a new file named `.env` in the same folder. Update the `.env` file with your values, including the `OPENAI_API_KEY` and `LDAP_CREDENTIALS`. Then Rebuild the Dev Container. 
     > *Note: The API runs on port 5001 and the Client on port 3000 by default. If these ports aren't available, specify different ones in `.env` at `API_PORT` and `CLIENT_PORT` respectively.*
 1. Install the project dependencies 
      ```bash
