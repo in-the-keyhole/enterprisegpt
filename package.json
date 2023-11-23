@@ -7,12 +7,12 @@
   },
   "dependencies": {
     "dotenv": "^16.1.4",
+    "openai": "^4.18.0",
     "react-icons": "^4.10.1",
     "react-syntax-highlighter": "^15.5.0"
   },
   "scripts": {
-    "start": "docker-compose build && docker-compose up",
-    "start:no-cache": "docker-compose down && docker-compose build --no-cache && docker-compose up"
+    "start": "cd client && npm run dev & cd api && npm run dev"
   },
   "repository": {
     "type": "git",
