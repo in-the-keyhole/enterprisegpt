@@ -1,0 +1,31 @@
+.chat-history-sessions-empty {
+    display: grid;
+    gap: var(--size-2);
+    place-items: center;
+    place-content: center;
+    text-align: center;
+    padding: var(--size-3);
+    height: 100%;
+
+    color: var(--text-2);
+}
+
+.chat-history-sessions-empty-message {
+    color: var(--text-2);
+    font-size: var(--font-size-0);
+}
+
+.chat-history-sessions-empty-icon {
+    --icon-size: var(--size-10);
+    --icon-color: inherit;
+
+    padding: var(--size-2);
+    aspect-ratio: 1;
+    background-color: var(--surface-3);
+    border-radius: var(--border-radius-2);
+    box-shadow: var(--shadow-2);
+}
+
+.chat-history-sessions-empty-title {
+    font-size: var(--font-size-3);
+}

@@ -1,0 +1,64 @@
+.login-container {
+    height: 100%;
+
+    display: grid;
+    place-items: center;
+}
+
+.login-container svg {
+    --icon-size: var(--size-11);
+    align-self: center;
+}
+
+.login-container > form {
+    position: relative;
+    width: var(--size-14);
+    padding: var(--size-3);
+    background: var(--surface-2);
+    border-radius: var(--border-radius-2);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+    align-items: stretch;
+}
+
+.login-container > form:before,
+.login-container > form:after {
+    border-radius: inherit;
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+    top: -3px;
+    left: -3px;
+    background: linear-gradient(
+        45deg,
+        var(--color-red-10),
+        var(--color-blue-10),
+        var(--color-yellow-10),
+        var(--color-yellow-6),
+        var(--color-green-10),
+        var(--color-red-10),
+        var(--color-blue-10),
+        var(--color-yellow-10),
+        var(--color-green-10)
+    );
+    background-size: 300%;
+    animation: shadow 20s linear infinite;
+}
+.login-container > form:after {
+    filter: blur(30px);
+}
+@keyframes shadow {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 300%;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}

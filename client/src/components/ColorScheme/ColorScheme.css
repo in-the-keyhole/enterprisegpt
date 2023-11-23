@@ -1,0 +1,33 @@
+.theme-toggle {
+    display: grid;
+    place-content: center;
+    place-items: center;
+}
+
+.theme-toggle:after {
+    content: '';
+    grid-area: 1 / 1;
+
+    display: block;
+
+    width: 8.1px;
+    aspect-ratio: 1;
+
+    border-radius: var(--border-radius-round);
+    background-color: var(--color-gray-5);
+
+    transition: translate var(--duration-6) var(--ease-out-1);
+}
+
+.theme-toggle.is-active:after {
+    translate: 30% 0 0;
+}
+
+.theme-toggle > * {
+    grid-area: 1 / 1;
+    transition: rotate var(--duration-6) var(--ease-out-1);
+}
+
+.theme-toggle.is-active > * {
+    rotate: 180deg;
+}

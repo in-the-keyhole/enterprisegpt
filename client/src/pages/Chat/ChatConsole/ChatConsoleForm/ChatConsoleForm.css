@@ -1,0 +1,53 @@
+.chat-console-form {
+    position: relative;
+    z-index: 1;
+    grid-template-columns: 1fr;
+
+    display: grid;
+    padding-inline: var(--size-10);
+}
+
+.chat-console-form > * {
+    grid-area: 1 / 1;
+}
+
+.chat-console-form textarea {
+    background-color: var(--surface-4);
+    border-radius: var(--border-radius-2);
+    resize: none;
+    padding: var(--size-3);
+}
+
+.chat-console-form > button {
+    --btn-bg: var(--brand);
+    --icon-color: white;
+
+    justify-self: end;
+    align-self: center;
+    margin-inline-end: var(--size-3);
+}
+
+.chat-console-form > .chat-console-form-error {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transform: translate(50%, 0);
+
+    opacity: 0;
+
+    padding: var(--size-2);
+
+    font-size: var(--font-size-0);
+    border-radius: var(--border-radius-2);
+    background-color: var(--error);
+    color: var(--text-2);
+
+    transition: opacity var(--duration-2) var(--ease-1),
+        transform var(--duration-2) var(--ease-1);
+}
+
+.chat-console-form > .chat-console-form-error.active {
+    opacity: 1;
+    transform: translate(50%, calc(-100% - var(--size-2)));
+}

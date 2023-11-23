@@ -1,0 +1,11 @@
+/**
+ * Icon components root CSS class selector to apply app icon styling.
+ *
+ * @property {string} --icon-size - components dimension, aspect ration sets height.
+ */
+.icon {
+    width: var(--icon-size, var(--size-5, 24px));
+    aspect-ratio: var(--aspect-ratio-square, 1);
+
+    color: var(--icon-color, var(--color-gray-5));
+}

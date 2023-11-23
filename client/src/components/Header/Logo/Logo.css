@@ -1,0 +1,17 @@
+.logo {
+    --_border-radius: var(--border-radius-2);
+
+    padding-block: var(--size-relative-2);
+    padding-inline: var(--size-relative-3);
+
+    background: var(--brand);
+
+    border-radius: var(--_border-radius);
+}
+
+@media (prefers-color-scheme: light) {
+}
+
+.logo > svg {
+    color: white;
+}

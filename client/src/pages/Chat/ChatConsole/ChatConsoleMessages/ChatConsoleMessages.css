@@ -1,0 +1,48 @@
+.chat-console-messages {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    gap: var(--size-3);
+    min-height: 0;
+
+    display: flex;
+    scroll-behavior: smooth;
+    /* Note */
+    /* Uses a wrapper element inside to then reverse the direction. This way */
+    /* dynamic content comes in at the bottom at all time and keeps scroll. */
+    flex-direction: column-reverse;
+}
+
+.chat-console-messages-scroll {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-console-messages-scroll:after,
+.chat-console-messages-scroll:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: var(--size-3);
+
+    position: sticky;
+    align-self: flex-start;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+.chat-console-messages-scroll:after {
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        var(--surface-3) 90%
+    );
+
+    bottom: 0;
+}
+.chat-console-messages-scroll:before {
+    background: linear-gradient(to top, transparent 0%, var(--surface-3) 90%);
+
+    top: 0;
+}
