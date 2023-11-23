@@ -40,7 +40,8 @@ export default function MarkdownRenderer({
 
                     return !inline && match ? (
                         <SyntaxHighlighter
-                            style={colorModeStyle}
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            style={colorModeStyle as any}
                             PreTag="div"
                             language={match[1]}
                             children={String(children).replace(/\n$/, '')}

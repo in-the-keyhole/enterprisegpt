@@ -162,7 +162,8 @@ export default class ChatStore {
         const session: ChatSession = observable({
             id: uuidv4(),
             createdDate: new Date(),
-            messages: []
+            messages: [],
+            bookmarked: false
         });
 
         this.sessions.unshift(session);

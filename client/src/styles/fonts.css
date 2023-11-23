@@ -4,67 +4,64 @@
 * https://deploy-preview-15--upbeat-shirley-608546.netlify.app/perfect-ish-font-fallback/?font=Nunito
 */
 @font-face {
-    font-family: "Nunito-Fallback";
+    font-family: 'Nunito-Fallback';
     size-adjust: 101.44000000000005%;
     ascent-override: 110%;
-    src: local("Arial");
+    src: local('Arial');
 }
 
 @font-face {
-    font-family: "Nunito";
+    font-family: 'Nunito';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: local(""),
-        url(@assets/fonts/nunito/nunito-v23-latin-regular.woff2) format("woff2");
+    src: local(''),
+        url(@assets/fonts/nunito/nunito-v23-latin-regular.woff2) format('woff2');
 }
 
 @font-face {
-    font-family: "Nunito";
+    font-family: 'Nunito';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
     src: local(''),
-        url(@assets/fonts/nunito/nunito-v23-latin-600.woff2')
-            format('woff2');
+        url(@assets/fonts/nunito/nunito-v23-latin-600.woff2) format('woff2');
 }
 
 @font-face {
-    font-family: "Nunito";
+    font-family: 'Nunito';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
     src: local(''),
-        url(@assets/fonts/nunito/nunito-v23-latin-700.woff2')
-            format('woff2');
+        url(@assets/fonts/nunito/nunito-v23-latin-700.woff2) format('woff2');
 }
 
 @font-face {
-    font-family: "Nunito";
+    font-family: 'Nunito';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
     src: local(''),
-        url(@assets/fonts/nunito/nunito-v23-latin-italic.woff2')
-            format('woff2');
+        url(@assets/fonts/nunito/nunito-v23-latin-italic.woff2) format('woff2');
 }
 
 @font-face {
-    font-family: "Nunito";
+    font-family: 'Nunito';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
     src: local(''),
-        url(@assets/fonts/nunito/nunito-v23-latin-600italic.woff2')
+        url(@assets/fonts/nunito/nunito-v23-latin-600italic.woff2)
             format('woff2');
 }
 
 @font-face {
-    font-family: "Nunito";
+    font-family: 'Nunito';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
     src: local(''),
-        url(@assets/fonts/nunito/nunito-v23-latin-700italic.woff2')
+        url(@assets/fonts/nunito/nunito-v23-latin-700italic.woff2)
             format('woff2');
 }
