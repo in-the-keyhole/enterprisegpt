@@ -1,0 +1,20 @@
+.header-container {
+    align-items: center;
+    flex-direction: column;
+
+    display: flex;
+
+    gap: var(--size-8);
+    padding: var(--size-3);
+}
+
+.header-container :is(.btn, .logo) {
+    scale: 0;
+    opacity: 0;
+    transition: scale var(--duration-2) ease, opacity var(--duration-2) ease;
+}
+
+.header-container.active :is(.btn, .logo) {
+    scale: 1;
+    opacity: 1;
+}

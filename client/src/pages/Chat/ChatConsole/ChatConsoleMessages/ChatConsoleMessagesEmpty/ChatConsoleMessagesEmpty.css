@@ -1,0 +1,129 @@
+.empty-state-container {
+    inset: 0;
+    position: absolute;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    display: flex;
+
+    gap: var(--size-2);
+
+    text-align: center;
+    color: var(--text-2);
+}
+
+.empty-state-illustrations {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    display: flex;
+
+    width: var(--size-12);
+    aspect-ratio: 1;
+
+    background-color: var(--surface-4);
+    border-radius: var(--border-radius-2);
+}
+
+.empty-state-illustrations-container {
+    flex-direction: column;
+
+    display: flex;
+
+    gap: var(--size-3);
+    width: 100%;
+
+    animation: float 5s var(--ease-in-out-1) infinite;
+}
+
+.empty-state-illustration {
+    align-items: center;
+    flex-direction: row;
+    flex: 1;
+
+    opacity: 0;
+    display: flex;
+
+    gap: var(--size-2);
+    padding: var(--size-1);
+
+    transform: scale(0);
+    box-shadow: var(--shadow-6);
+    border-radius: var(--border-radius-2);
+    background-color: var(--surface-3);
+}
+
+.empty-state-illustration:nth-child(odd) {
+    transform: translateX(calc(var(--size-3) * -1));
+    animation: popInRight var(--duration-5) var(--ease-in-out-1);
+    animation-fill-mode: forwards;
+    transform-origin: top left;
+}
+
+.empty-state-illustration:nth-child(even) {
+    transform: translateX(var(--size-3));
+    animation: popInLeft var(--duration-5) var(--ease-in-out-1)
+        var(--duration-5);
+    animation-fill-mode: forwards;
+    transform-origin: top right;
+}
+
+.empty-state-illustration-icon {
+    width: var(--size-5);
+    aspect-ratio: 1;
+
+    color: var(--icon-color);
+    border-radius: var(--border-radius-2);
+    background-color: var(--surface-4);
+}
+
+.empty-state-illustration-line {
+    flex: 1;
+    height: var(--size-2);
+    background-color: var(--surface-4);
+    border-radius: var(--border-radius-2);
+}
+
+.empty-state-title {
+    font-size: var(--font-size-3);
+}
+
+.empty-state-container > p {
+    font-size: var(--font-size-0);
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(3%);
+    }
+    50% {
+        transform: translateY(-3%);
+    }
+    100% {
+        transform: translateY(3%);
+    }
+}
+
+@keyframes popInRight {
+    0% {
+        transform: scale(0) translateX(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateX(-10%);
+        opacity: 100%;
+    }
+}
+
+@keyframes popInLeft {
+    0% {
+        transform: scale(0) translateX(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateX(10%);
+        opacity: 100%;
+    }
+}

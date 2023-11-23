@@ -1,0 +1,9 @@
+.chat-container {
+    grid-template-columns: var(--size-14) minmax(0, 1fr);
+
+    display: grid;
+
+    min-height: 0;
+    height: 100%;
+    gap: var(--size-3);
+}

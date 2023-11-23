@@ -1,0 +1,28 @@
+.chat-message-actions {
+    --icon-size: var(--font-size-1);
+    --icon-color: var(--text-2);
+    --btn-shadow: 0 0 0 transparent;
+    --btn-bg: transparent;
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    display: flex;
+
+    gap: var(--size-1);
+    padding-block: var(--size-2);
+    padding-inline: var(--size-3);
+
+    color: var(--text-2);
+    font-size: var(--font-size-0);
+}
+
+.chat-message-actions > button {
+    opacity: 0.3;
+    transition: opacity var(--duration-2) var(--ease-in-out-1);
+}
+
+.chat-message-actions > button:hover {
+    opacity: 1;
+}

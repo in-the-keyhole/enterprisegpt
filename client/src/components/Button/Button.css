@@ -1,0 +1,30 @@
+.btn {
+    --btn-radius: var(--border-radius-2);
+    --_btn-highlight-size: 0;
+
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    display: inline-flex;
+    user-select: none;
+    z-index: 1;
+
+    gap: var(--size-2);
+    border: var(--border-size-2) solid var(--_border);
+    padding-block: var(--size-relative-2);
+    padding-inline: var(--size-relative-3);
+
+    color: var(--btn-text);
+    background: var(--btn-bg);
+    box-shadow: var(--btn-shadow),
+        0 0 0 var(--_btn-highlight-size) var(--btn-hover-highlight);
+    border-radius: var(--btn-radius);
+
+    transition: border-color 0.5s var(--ease-3), box-shadow 145ms var(--ease-4),
+        outline-offset 145ms var(--ease-4);
+}
+
+.btn:hover {
+    --_btn-highlight-size: calc(var(--size-1) * 1.5);
+}

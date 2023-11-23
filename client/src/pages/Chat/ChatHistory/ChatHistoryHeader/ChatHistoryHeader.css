@@ -1,0 +1,8 @@
+.chat-history-header {
+    grid-template-columns: min-content minmax(0, 1fr);
+    justify-items: end;
+
+    display: grid;
+
+    gap: var(--size-3);
+}

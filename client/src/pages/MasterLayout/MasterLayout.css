@@ -1,0 +1,13 @@
+.master-layout-container {
+    grid-template-columns: min-content 1fr;
+
+    display: grid;
+    overflow: hidden;
+
+    min-height: 0;
+    height: 100%;
+}
+
+.master-layout-container > * {
+    min-height: 0;
+}

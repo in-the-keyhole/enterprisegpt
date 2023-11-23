@@ -1,0 +1,123 @@
+.chat-history-session-container {
+    --_session-high-light-size: 0;
+
+    position: relative;
+    isolation: isolate;
+    align-items: center;
+    grid-template-columns: minmax(0, 1fr) min-content;
+
+    display: grid;
+    overflow: hidden;
+
+    gap: var(--size-2);
+    padding: var(--size-3);
+
+    border-radius: var(--border-radius-2);
+    color: var(--text-2);
+}
+
+.chat-history-session-container.active {
+    --_session-high-light-size: 1;
+}
+
+.chat-history-session-container:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    display: block;
+    scale: var(--_session-high-light-size);
+
+    border-radius: inherit;
+    background-color: var(--surface-1);
+
+    transition: scale var(--duration-2) var(--ease-3);
+}
+
+.chat-history-session-container > :last-child {
+    grid-column: span 2;
+}
+
+.chat-history-session-container > *:not(button, :has(button)) {
+    pointer-events: none;
+}
+
+.chat-history-session-date,
+.chat-history-session-title {
+    white-space: nowrap;
+}
+
+.chat-history-session-title {
+    font-size: var(--font-size-1);
+
+    color: var(--text-1);
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+}
+
+.chat-history-session-date {
+    font-size: var(--font-size-00);
+    justify-self: end;
+}
+
+.chat-history-session-summary {
+    font-size: var(--font-size-0);
+    line-height: var(--font-line-height-2);
+}
+
+.chat-history-session-selector {
+    all: revert;
+
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background: transparent;
+    border: none;
+    border-radius: var(--border-radius-2);
+    cursor: pointer;
+}
+
+.chat-history-session-selector > span {
+    position: absolute;
+
+    clip: rect(0, 0, 0, 0);
+    overflow: hidden;
+
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.chat-history-session-actions {
+    align-self: baseline;
+    justify-self: end;
+
+    display: flex;
+}
+
+.chat-history-session-actions > .btn {
+    --icon-size: var(--font-size-1);
+    --btn-shadow: 0 0 0 transparent;
+    --btn-bg: transparent;
+
+    color: var(--text-2);
+    font-size: var(--font-size-0);
+
+    scale: 0;
+    transition: scale var(--duration-2) var(--ease-3);
+}
+
+.chat-history-session-actions > .btn:last-child {
+    transition-delay: var(--duration-1);
+}
+
+.active > .chat-history-session-actions > .btn {
+    scale: 1;
+}

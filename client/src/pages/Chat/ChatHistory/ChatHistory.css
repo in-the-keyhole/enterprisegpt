@@ -1,0 +1,9 @@
+.chat-history-container {
+    grid-template-rows: min-content minmax(0, 1fr);
+
+    display: grid;
+
+    min-height: 0;
+
+    gap: var(--size-3);
+}

@@ -1,0 +1,47 @@
+.chat-history-sessions-container {
+    grid-template-rows: min-content minmax(0, 1fr);
+    display: grid;
+    gap: var(--size-2);
+    min-height: 0;
+}
+
+.chat-history-sessions {
+    list-style: none;
+
+    overflow: auto;
+    scroll-behavior: smooth;
+
+    min-height: 0;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+}
+
+.chat-history-sessions:after,
+.chat-history-sessions:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: var(--size-2);
+
+    position: sticky;
+    align-self: flex-start;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+.chat-history-sessions:after {
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        var(--surface-2) 90%
+    );
+
+    bottom: 0;
+}
+.chat-history-sessions:before {
+    background: linear-gradient(to top, transparent 0%, var(--surface-2) 90%);
+
+    top: 0;
+}

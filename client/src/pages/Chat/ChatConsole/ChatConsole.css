@@ -1,0 +1,20 @@
+.chat-console-container {
+    grid-template-rows: min-content minmax(0, 1fr);
+
+    display: grid;
+
+    min-height: 0;
+    gap: var(--size-3);
+}
+
+.chat-console-content {
+    grid-template-rows: minmax(0, 1fr) min-content;
+
+    display: grid;
+
+    min-height: 0;
+    padding: var(--size-3);
+
+    background: var(--surface-3);
+    border-radius: var(--border-radius-2);
+}

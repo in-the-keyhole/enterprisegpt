@@ -1,0 +1,102 @@
+.chat-message-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-5);
+    align-items: start;
+    padding-inline: var(--size-10);
+}
+
+.chat-message-cluster + .chat-message-cluster {
+    margin-block-start: var(--size-6);
+}
+
+.chat-message {
+    --distance: 250%;
+
+    position: relative;
+    grid-template-rows: min-content minmax(0, 1fr);
+
+    display: grid;
+
+    gap: var(--size-1);
+    min-width: var(--size-content-1);
+    max-width: var(--size-content-3);
+
+    opacity: calc(0.25 + (var(--shown, 1) * 0.75));
+    transition: opacity 0.5s var(--ease-1), translate 0.5s var(--ease-1);
+    translate: calc(
+        (var(--distance) * -1) + (var(--shown, 1) * var(--distance))
+    );
+}
+
+.chat-message:nth-child(even) {
+    --distance: -250%;
+}
+
+.chat-message.chat-message-response {
+    align-self: flex-end;
+}
+
+.chat-message-header {
+    position: relative;
+    align-items: baseline;
+
+    display: flex;
+
+    gap: var(--size-2);
+    padding-inline-start: var(--size-5);
+}
+
+.chat-message-avatar {
+    --icon-color: white;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    translate: -50%;
+    padding: var(--size-relative-2);
+
+    background: var(--surface-2);
+    border-radius: var(--border-radius-2);
+}
+
+.chat-message-response .chat-message-avatar {
+    background: var(--brand);
+}
+
+.chat-message-title {
+    font-size: var(--font-size-0);
+}
+
+.chat-message-header > time {
+    color: var(--text-2);
+    font-size: var(--font-size-00);
+}
+
+.chat-message-content {
+    min-width: 0;
+    padding: var(--size-2) var(--size-5);
+    border-radius: var(--border-radius-2);
+
+    background-color: var(--surface-4);
+}
+
+.chat-message-content pre {
+    overflow-x: auto;
+    padding: var(--size-3);
+    min-width: 0;
+    width: 100%;
+}
+
+.chat-message-response > .chat-message-content {
+    background-color: var(--brand-secondary);
+}
+
+:has(.chat-message-actions) > .chat-message-content {
+    padding-block-end: calc(var(--size-7) * 1.25);
+}
+
+.chat-message .loading-dots {
+    margin-inline: var(--size-3);
+    margin-block: var(--size-1);
+}
