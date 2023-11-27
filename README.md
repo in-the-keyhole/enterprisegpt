@@ -12,7 +12,7 @@ Make sure you have the following installed on your machine before proceeding:
 
 - Docker Desktop (version 4.11.0 or higher)
 
-## Starting the application
+## Starting the application with Visual Studio Code
 1. Clone the repository:
     ```bash
     git clone https://github.com/in-the-keyhole/enterprisegpt
