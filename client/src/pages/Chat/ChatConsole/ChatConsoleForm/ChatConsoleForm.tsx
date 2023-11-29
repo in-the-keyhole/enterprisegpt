@@ -12,7 +12,6 @@ import './ChatConsoleForm.css';
 import Icon from '@components/Icon';
 import Button from '@components/Button';
 import { useChat } from '../../useChat';
-import containsCodePatterns from '@helpers/containsCodePatterns';
 import ChatConsoleFormPrompt from './ChatConsoleFormPrompt';
 
 /**
@@ -31,11 +30,7 @@ const ChatConsoleForm = (): JSX.Element => {
     // Send message to store, check for code in the prompt or it being empty
     // before sending
     const sendMessage = useCallback(() => {
-        if (containsCodePatterns(prompt)) {
-            setError(
-                'Code snippets are not valid. Please remove before trying again.'
-            );
-        } else {
+        {
             if (prompt.length) {
                 store.addMessage(prompt);
                 clear();
