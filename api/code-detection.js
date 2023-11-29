@@ -1,5 +1,3 @@
-// codeDetection.js
-
 const codeRegex = new RegExp([
     /;$/.source,
     /\w+\([^)]*\)/.source,
