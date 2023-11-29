@@ -15,7 +15,6 @@ import {
 // Dependencies
 import { createChatCompletion } from './chatServices';
 import { ChatSession, ChatSessionMessage, StoreStatus } from './chatStoreTypes';
-import { error } from 'console';
 
 // Locals
 const STORAGE_KEY = 'CHAT_GPT_ENTERPRISE';
