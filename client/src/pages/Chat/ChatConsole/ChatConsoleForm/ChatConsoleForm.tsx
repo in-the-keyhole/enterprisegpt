@@ -27,8 +27,7 @@ const ChatConsoleForm = (): JSX.Element => {
 
     const clear = useCallback(() => setPrompt(''), []);
 
-    // Send message to store, check for code in the prompt or it being empty
-    // before sending
+    // Send message to store
     const sendMessage = useCallback(() => {
         {
             if (prompt.length) {
