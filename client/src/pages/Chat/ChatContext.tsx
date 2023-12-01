@@ -5,9 +5,7 @@ import { useState, ReactNode, createContext } from 'react';
 import ChatStore, { createChatStore } from './chatStore';
 
 /**
- * Description placeholder
- *
- * @type {*}
+ * Chat store context
  */
 export const ChatContext = createContext<ChatStore | null>(null);
 
