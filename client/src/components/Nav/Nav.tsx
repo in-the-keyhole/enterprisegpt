@@ -2,6 +2,8 @@
 import './Nav.css';
 import Icon from '@components/Icon';
 import Button from '@components/Button';
+import { useAuth } from '../Auth/useAuth';
+import { useCallback } from 'react';
 
 /**
  * Navigation component responsible for displaying global navigation.
@@ -10,9 +12,12 @@ import Button from '@components/Button';
  * @returns {JSX.Element}
  */
 export default function Nav(): JSX.Element {
+    const authStore = useAuth();
+    const handleLogout = useCallback(() => authStore.logout(), [authStore]);
+
     return (
         <nav className="nav">
-            <Button type="link" to="/chat" title="Start a Chat">
+            <Button type="link" to="/" title="Start a Chat">
                 <Icon type="CHATS" />
             </Button>
 
@@ -27,7 +32,7 @@ export default function Nav(): JSX.Element {
                 <Icon type="STYLE" />
             </Button>
 
-            <Button type="link" to="/" title="Log t user out">
+            <Button type="button" title="Log user out" onClick={handleLogout}>
                 <Icon type="LOGOUT" />
             </Button>
         </nav>

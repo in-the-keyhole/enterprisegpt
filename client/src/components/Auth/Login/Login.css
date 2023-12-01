@@ -1,0 +1,208 @@
+.login-container {
+    inset: 0;
+    z-index: 100;
+    position: fixed;
+    place-items: center;
+
+    display: grid;
+    opacity: 0;
+    pointer-events: none;
+
+    background-color: transparent;
+
+    transition: opacity var(--duration-7) var(--ease-elastic-in-out-5),
+        background-color var(--duration-7) var(--ease-elastic-in-out-5);
+}
+
+.login-container.active {
+    opacity: 1;
+    pointer-events: auto;
+
+    background-color: var(--surface-2);
+}
+
+@supports (backdrop-filter: blur(0)) {
+    .login-container.active {
+        background-color: transparent;
+        backdrop-filter: blur(10px) sepia(90%) hue-rotate(180deg);
+    }
+}
+
+.login-form-wrapper {
+    scale: 0.75;
+    opacity: 0;
+
+    transition: opacity var(--duration-7) var(--ease-elastic-in-out-5),
+        scale var(--duration-7) var(--ease-elastic-in-out-5);
+}
+
+.login-container.active > .login-form-wrapper {
+    scale: 1;
+    opacity: 1;
+}
+
+.login-form-icons {
+    --icon-size: var(--size-10);
+
+    align-self: center;
+    place-items: center;
+    place-content: center;
+
+    display: grid;
+}
+
+.login-form-icons > * {
+    grid-area: 1 / 1;
+
+    transition: opacity var(--duration-7) var(--ease-elastic-in-out-5),
+        scale var(--duration-7) var(--ease-elastic-in-out-5);
+}
+
+.login-form-icons > :last-child,
+.login-container.error .login-form-icons > :first-child {
+    scale: 0.75;
+    opacity: 0;
+}
+
+.login-form-icons > :first-child,
+.login-container.error .login-form-icons > :last-child {
+    scale: 1;
+    opacity: 1;
+}
+
+.login-form-icons :last-child {
+    --icon-color: var(--color-red-9);
+}
+
+.login-form {
+    position: relative;
+    align-items: stretch;
+    flex-direction: column;
+
+    display: flex;
+
+    gap: var(--size-4);
+    width: var(--size-14);
+    padding: var(--size-4);
+
+    background: var(--surface-2);
+    border-radius: var(--border-radius-2);
+
+    transition: padding-block-end var(--duration-7) var(--ease-elastic-in-out-5);
+}
+
+.login-container.error .login-form {
+    padding-block-end: calc(var(--size-9) * 1.125);
+}
+
+.login-form:before,
+.login-form:after {
+    --_border-size: var(--size-2);
+
+    content: '';
+
+    z-index: -1;
+    position: absolute;
+    top: calc(var(--_border-size) * -0.5);
+    left: calc(var(--_border-size) * -0.5);
+
+    width: calc(100% + var(--_border-size));
+    height: calc(100% + var(--_border-size));
+
+    animation: shadow 20s linear infinite;
+    border-radius: inherit;
+    background-size: 300%;
+    background: linear-gradient(
+        45deg,
+        var(--color-red-10),
+        var(--color-blue-10),
+        var(--color-yellow-10),
+        var(--color-yellow-6),
+        var(--color-green-10),
+        var(--color-red-10),
+        var(--color-blue-10),
+        var(--color-yellow-10),
+        var(--color-green-10)
+    );
+}
+
+.login-container.error .login-form:before,
+.login-container.error .login-form:after {
+    background: linear-gradient(
+        45deg,
+        var(--color-red-10),
+        var(--color-red-5),
+        var(--color-red-8),
+        var(--color-red-6),
+        var(--color-red-5),
+        var(--color-red-10),
+        var(--color-red-8),
+        var(--color-red-7),
+        var(--color-red-10)
+    );
+}
+
+.login-form:after {
+    filter: blur(30px);
+}
+
+.login-form .btn {
+    place-items: center;
+    place-content: center;
+
+    display: grid;
+}
+
+.login-form .btn > * {
+    grid-area: 1 / 1;
+
+    transition: opacity var(--duration-7) var(--ease-elastic-in-out-5),
+        scale var(--duration-7) var(--ease-elastic-in-out-5);
+}
+
+.login-form > .btn > *,
+.login-container.loading .login-form > .btn > :first-child {
+    scale: 0.75;
+    opacity: 0;
+}
+
+.login-form > .btn > :first-child,
+.login-container.loading .login-form > .btn > :last-child {
+    scale: 1;
+    opacity: 1;
+}
+
+.login-error {
+    position: absolute;
+    inset: auto var(--size-4) var(--size-4);
+
+    padding: var(--size-2);
+    font-size: var(--font-size-0);
+    border-radius: var(--border-radius-2);
+    background-color: var(--error);
+    color: var(--text-2);
+    text-align: center;
+
+    scale: 0.75;
+    opacity: 0;
+
+    transition: opacity var(--duration-7) var(--ease-elastic-in-out-5),
+        scale var(--duration-7) var(--ease-elastic-in-out-5);
+}
+
+.login-container.error .login-error {
+    scale: 1;
+    opacity: 1;
+}
+
+@keyframes shadow {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 300%;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}

@@ -1,6 +1,5 @@
 // Lib Dependencies
 import { ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
 
 // Dependencies
 import './Header.css';
@@ -24,15 +23,8 @@ interface HeaderProps {
  * @returns {JSX.Element} JSX element representing the Header component.
  */
 export default function Header({ children }: HeaderProps): JSX.Element {
-    const location = useLocation();
-
     return (
-        <header
-            className={
-                location.pathname === '/'
-                    ? 'header-container'
-                    : 'header-container active'
-            }>
+        <header className="header-container">
             <Logo />
 
             {children}

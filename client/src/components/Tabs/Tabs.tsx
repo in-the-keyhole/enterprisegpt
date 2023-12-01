@@ -1,14 +1,9 @@
 // Lib Dependencies
-import {
-    ReactNode,
-    useState,
-    useCallback,
-    createContext,
-    useContext
-} from 'react';
+import { ReactNode, useState, useCallback, createContext } from 'react';
 
 // Dependencies
 import './Tabs.css';
+import { useTabContext } from './useTabContext';
 
 /**
  * Defines the properties of the TabContext.
@@ -21,7 +16,7 @@ interface TabContextProps {
 /**
  * Context for managing tab state.
  */
-const TabContext = createContext<TabContextProps | undefined>(undefined);
+export const TabContext = createContext<TabContextProps | undefined>(undefined);
 
 /**
  * Properties for the TabProvider component.
@@ -47,19 +42,6 @@ export const TabProvider: React.FC<TabProviderProps> = ({
             {children}
         </TabContext.Provider>
     );
-};
-
-/**
- * Hook for accessing the tab context.
- * @returns The context of the tab.
- * @throws An error if used outside a TabProvider.
- */
-export const useTabContext = () => {
-    const context = useContext(TabContext);
-    if (!context) {
-        throw new Error('useTabContext must be used within a TabProvider');
-    }
-    return context;
 };
 
 /**

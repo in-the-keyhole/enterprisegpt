@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { ColorModeProvider } from '@/components/ColorScheme';
+import { AuthProvider } from '@components/Auth';
+import { ColorModeProvider } from '@components/ColorScheme';
 
 // Dependencies
 interface ProvidersProps {
@@ -7,5 +8,9 @@ interface ProvidersProps {
 }
 
 export default function Providers({ children }: ProvidersProps): JSX.Element {
-    return <ColorModeProvider>{children}</ColorModeProvider>;
+    return (
+        <AuthProvider>
+            <ColorModeProvider>{children}</ColorModeProvider>
+        </AuthProvider>
+    );
 }
