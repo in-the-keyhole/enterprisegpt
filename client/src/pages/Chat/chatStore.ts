@@ -206,10 +206,13 @@ export default class ChatStore {
             .then(r => runInAction(() => (message.response = r.message)))
             .then(() => this.updateStatus(StoreStatus.COMPLETE))
             .catch(
-                error => (
-                    this.updateStatus(StoreStatus.ERROR),
-                    console.error('Error in addMessage:', error)
-                )
+                error => {
+                    this.updateStatus(StoreStatus.ERROR);
+                    console.error('Error in addMessage:', error);
+                    if (error.response.status === 400) {
+                        alert(error.response?.data.message || "Bad request");
+                    }
+                }
             );
     }
 

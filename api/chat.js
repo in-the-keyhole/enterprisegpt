@@ -6,7 +6,8 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const isCodeDetectionEnabled = process.env.CODE_DETECTION_ENABLED;
+const isCodeDetectionEnabled = process.env.CODE_DETECTION_ENABLED === 'true';
+
 
 export const handler = async (event) => {
 
