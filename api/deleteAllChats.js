@@ -4,11 +4,12 @@ export const handler = async (event) => {
     try {
         const { currentUser } = JSON.parse(event.isBase64Encoded ? Buffer.from(event.body, 'base64').toString('utf-8') : event.body);
 
+        //TODO update to get user from event
         deleteItemsForUser('jgreen');
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: 'Conversation deleted successfully' }),
+            body: JSON.stringify({ message: 'Conversations deleted successfully' }),
         };
     } catch (error) {
         console.error('Error handling request:', error);

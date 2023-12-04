@@ -9,6 +9,7 @@ export const handler = async (event) => {
 
         const updatedArray = removeMessagesByConversationId(existingConversations, sessionId);
 
+        //TODO update to get user from event
         insertChatEntry('jgreen', updatedArray);
 
         return {

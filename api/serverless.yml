@@ -38,6 +38,12 @@ functions:
       - httpApi:
           path: /deleteAllChats
           method: post
+  getAllChats:
+    handler: getAllChats.handler
+    events:
+      - httpApi:
+          path: /getAllChats
+          method: post
 plugins:
   - serverless-offline
   - serverless-domain-manager
