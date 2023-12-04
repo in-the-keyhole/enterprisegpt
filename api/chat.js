@@ -1,5 +1,7 @@
 import { Configuration, OpenAIApi } from 'openai';
 import { isCodeDetected } from './code-detection.js';
+import { insertChatEntry, getAllConversationsForUser } from './database/db-functions.js'
+import { modifyConversations, conversationsChanged } from './database/conversation-functions.js'
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,11 +13,11 @@ const isCodeDetectionEnabled = process.env.CODE_DETECTION_ENABLED === 'true';
 
 export const handler = async (event) => {
 
-  const { chatPrompt } = JSON.parse(event.isBase64Encoded ? Buffer.from(event.body, 'base64').toString('utf-8') : event.body);
+  const { chatPrompt, currentUser, sessionId } = JSON.parse(event.isBase64Encoded ? Buffer.from(event.body, 'base64').toString('utf-8') : event.body);
 
   if (isCodeDetectionEnabled) {
     const isUserCode = isCodeDetected(chatPrompt);
-  
+
     if (isUserCode) {
       // If user input is detected as code, handle it accordingly
       return {
@@ -53,6 +55,30 @@ export const handler = async (event) => {
     });
 
     const message = completionResponse.data.choices[0].message.content;
+
+    const newMessage = {
+      conversationId: sessionId,
+      messages: [
+        {
+          prompt: chatPrompt,
+          reply: message,
+          timestamp: Date.now()
+        }
+      ]
+    };
+
+    //TODO update front end to return current user 
+    const existingConversations = await getAllConversationsForUser('jgreen');
+
+    if (existingConversations === null || existingConversations === undefined) {
+      insertChatEntry('jgreen', newMessage);
+    } else {
+      const updatedConversations = modifyConversations(existingConversations, newMessage);
+      if (conversationsChanged(existingConversations, updatedConversations)) {
+        //TODO update front end to return current user
+        insertChatEntry('jgreen', updatedConversations);
+      }
+    }
 
     return {
       statusCode: 200,
