@@ -1,10 +1,15 @@
-import { deleteConversationById } from './database/db-functions.js';
+import { getAllConversationsForUser, insertChatEntry } from './database/db-functions.js';
+import { removeMessagesByConversationId } from './database/conversation-functions.js';
 
 export const handler = async (event) => {
     try {
         const { currentUser, sessionId } = JSON.parse(event.isBase64Encoded ? Buffer.from(event.body, 'base64').toString('utf-8') : event.body);
 
-        await deleteConversationById(currentUser, sessionId, compositeConversationId);
+        const existingConversations = await getAllConversationsForUser('jgreen');
+
+        const updatedArray = removeMessagesByConversationId(existingConversations, sessionId);
+
+        insertChatEntry('jgreen', updatedArray);
 
         return {
             statusCode: 200,

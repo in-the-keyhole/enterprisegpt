@@ -44,3 +44,27 @@ export function conversationsChanged(existingConversations, updatedConversations
     // Check if the lengths of conversations are different
     return JSON.stringify(existingConversations) !== JSON.stringify(updatedConversations);
 }
+
+export function removeMessagesByConversationId(array, targetConversationId) {
+    // Iterate through the array in reverse to avoid index issues
+    for (let i = array.length - 1; i >= 0; i--) {
+      const element = array[i];
+  
+      // Check if the element is an array
+      if (Array.isArray(element)) {
+        // Recursively call the function for nested arrays
+        removeMessagesByConversationId(element, targetConversationId);
+  
+        // Remove the nested array if it becomes empty after the recursive call
+        if (element.length === 0) {
+          array.splice(i, 1);
+        }
+      } else if (element.conversationId === targetConversationId) {
+        // Remove the entire element if the conversationId matches the target
+        array.splice(i, 1);
+      }
+    }
+  
+    // Flatten the array after removing elements
+    return array.flat(Infinity);
+  }

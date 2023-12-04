@@ -26,6 +26,18 @@ functions:
           path: /createChatCompletion
           method: post
     timeout: 30
+  deleteConversation:
+    handler: deleteConversation.handler
+    events:
+      - httpApi:
+          path: /deleteConversation
+          method: post
+  deleteAllChats:
+    handler: deleteAllChats.handler
+    events:
+      - httpApi:
+          path: /deleteAllChats
+          method: post
 plugins:
   - serverless-offline
   - serverless-domain-manager
