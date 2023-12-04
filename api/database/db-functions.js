@@ -80,3 +80,21 @@ export const getAllConversationsForUser = async (usr) => {
         // You can handle the error here or throw it instead of returning an empty array.
     }
 };
+
+export const deleteItemsForUser = async (username) => {
+    const params = {
+        TableName: tableName,
+        Key: {
+            'usr': { S: username },
+        },
+    };
+
+    try {
+        const response = await dynamoDB.deleteItem(params).promise();
+        console.log(`Successfully deleted items for user ${username}`);
+        return response;
+    } catch (error) {
+        console.error(`Error deleting items for user ${username}: ${error.message}`);
+        throw error;
+    }
+};
