@@ -44,9 +44,17 @@ functions:
       - httpApi:
           path: /getAllChats
           method: post
+  getSingleConversation:
+    handler: getSingleConversation.handler
+    events:
+      - httpApi:
+          path: /getSingleConversation
+          method: post
+
 plugins:
   - serverless-offline
   - serverless-domain-manager
+
 custom:
   customDomain:
     domainName: ${env:DOMAIN_NAME}
