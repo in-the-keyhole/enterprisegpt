@@ -42,6 +42,9 @@ Your application should now be running on the ports specified in the `.env` file
 ## Enabling Or Disabling Source Code Detection
 In order to prevent source code to be submitted for analysis, the environment variable `CODE_DETECTION_ENABLED` can be set to `true` or `false`
 
+## Deploying Environment Variables
+`sls deploy` is currently done by hand but will be automated eventually. To update deployed `.env` variables set the values you want deployed in the `.env` file in `.devcontainer`. Run `sls deploy` and those `.env` variables will be set
+
 ## Node.js Version
 This project uses Node.js version 14. 
 
