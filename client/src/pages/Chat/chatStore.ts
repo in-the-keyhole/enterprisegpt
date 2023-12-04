@@ -201,7 +201,8 @@ export default class ChatStore {
 
         createChatCompletion({
             prompts: session.messages.map(m => m.text),
-            chatPrompt: text
+            chatPrompt: text,
+            sessionId: session.id
         })
             .then(r => runInAction(() => (message.response = r.message)))
             .then(() => this.updateStatus(StoreStatus.COMPLETE))

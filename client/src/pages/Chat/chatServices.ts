@@ -21,6 +21,7 @@ export interface ChatCompletionResponse {
 export interface ChatCompletionRequest {
     prompts: string[];
     chatPrompt: string;
+    sessionId: string;
 }
 
 /**
